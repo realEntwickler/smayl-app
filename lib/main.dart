@@ -1,3 +1,37 @@
+/*
+ *
+ *  * (c) ${YEAR} Nils Kevin Körting-Eberhardt (realEntwickler)
+ *  *
+ *  * File: ${NAME}
+ *  * Created on: ${DATE}
+ *  *
+ *  * This file is part of the project "SMAYL 2.0".
+ *  *
+ *  * Licensed under the Creative Commons Attribution - NonCommercial -
+ *  * NoDerivatives 4.0 International License (CC BY-NC-ND 4.0).
+ *  *
+ *  * For more information about this license, please visit:
+ *  * https://creativecommons.org/licenses/by-nc-nd/4.0/
+ *
+ */
+
+/*
+ *
+ *  * (c) ${YEAR} Nils Kevin Körting-Eberhardt (realEntwickler)
+ *  *
+ *  * File: ${NAME}
+ *  * Created on: ${DATE}
+ *  *
+ *  * This file is part of the project "SMAYL 2.0".
+ *  *
+ *  * Licensed under the Creative Commons Attribution - NonCommercial -
+ *  * NoDerivatives 4.0 International License (CC BY-NC-ND 4.0).
+ *  *
+ *  * For more information about this license, please visit:
+ *  * https://creativecommons.org/licenses/by-nc-nd/4.0/
+ *
+ */
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,7 +45,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'SMAYL 2.0',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -28,9 +62,9 @@ class MyApp extends StatelessWidget {
         //
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'SMAYL 2.0 - Hauptmenü'),
     );
   }
 }
