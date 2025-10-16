@@ -2,7 +2,7 @@
  *
  *  * (c) 2025 Nils Kevin Körting-Eberhardt (realEntwickler)
  *  *
- *  * File: main.dart
+ *  * File: page_home.dart
  *  * Created on: 16.10.25, 08:28
  *  *
  *  * This file is part of the project "SMAYL 2.0".
@@ -19,8 +19,8 @@
  *
  *  * (c) 2025 Nils Kevin Körting-Eberhardt (realEntwickler)
  *  *
- *  * File: main.dart
- *  * Created on: 16.10.25, 07:53
+ *  * File: page_home.dart
+ *  * Created on: 16.10.25, 08:00
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
@@ -31,22 +31,13 @@
  *  * https://creativecommons.org/licenses/by-nc-nd/4.0/
  *
  */
-
 import 'package:flutter/material.dart';
-import 'package:smayl/pages/page_home.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+class page_home extends StatelessWidget {
+  const page_home({super.key});
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: true,
-        home: page_home());
+    return Scaffold(backgroundColor: Colors.grey,)
   }
 }
