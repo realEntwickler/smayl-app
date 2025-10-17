@@ -3,24 +3,7 @@
  *  * (c) 2025 Nils Kevin Körting-Eberhardt (realEntwickler)
  *  *
  *  * File: main.dart
- *  * Created on: 16.10.25, 08:28
- *  *
- *  * This file is part of the project "SMAYL 2.0".
- *  *
- *  * Licensed under the Creative Commons Attribution - NonCommercial -
- *  * NoDerivatives 4.0 International License (CC BY-NC-ND 4.0).
- *  *
- *  * For more information about this license, please visit:
- *  * https://creativecommons.org/licenses/by-nc-nd/4.0/
- *
- */
-
-/*
- *
- *  * (c) 2025 Nils Kevin Körting-Eberhardt (realEntwickler)
- *  *
- *  * File: main.dart
- *  * Created on: 16.10.25, 07:53
+ *  * Created on: 17.10.25, 10:55
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
