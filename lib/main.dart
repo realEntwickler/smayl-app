@@ -3,7 +3,7 @@
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: main.dart
- *  * Created on: 19.10.25, 09:59
+ *  * Created on: 19.10.25, 11:08
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
@@ -16,7 +16,7 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:smayl/pages/page_home.dart';
+import 'package:smayl/pages/HomeWidget.dart';
 
 void main() {
   runApp(const MyApp());
@@ -30,6 +30,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: true,
-        home: page_home());
+        home: HomeWidget());
   }
 }

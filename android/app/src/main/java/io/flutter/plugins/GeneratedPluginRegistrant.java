@@ -1,9 +1,9 @@
 /*
  *
- *  * (c) 2025 Nils Kevin Körting-Eberhardt (realEntwickler)
+ *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: GeneratedPluginRegistrant.java
- *  * Created on: 17.10.25, 10:55
+ *  * Created on: 19.10.25, 11:08
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
