@@ -1,10 +1,10 @@
 #!/bin/sh
 #
 # /*
-#  * (c) 2025 Nils Kevin Körting-Eberhardt (realEntwickler)
+#  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
 #  *
 #  * File: flutter_export_environment.sh
-#  * Created on: 17.10.25, 10:55
+#  * Created on: 19.10.25, 09:59
 #  *
 #  * This file is part of the project "SMAYL 2.0".
 #  *
