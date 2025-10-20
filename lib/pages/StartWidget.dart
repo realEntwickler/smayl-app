@@ -3,7 +3,7 @@
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: StartWidget.dart
- *  * Created on: 20.10.25, 08:34
+ *  * Created on: 20.10.25, 11:23
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
@@ -17,16 +17,21 @@
 
 import 'package:flutter/material.dart';
 
+import '../utils/NewsItem.dart';
+
 class StartWidget extends StatelessWidget {
 
-  const StartWidget({super.key});
+  final List<NewsItem> newsList;
+
+  const StartWidget({super.key, required this.newsList});
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       padding: const EdgeInsets.all(10),
-      itemCount: 2,
+      itemCount: newsList.length,
       itemBuilder: (context, index) {
+        final NewsItem newsItem = newsList[index];
         return Card(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           elevation: 3,
@@ -34,20 +39,16 @@ class StartWidget extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ClipRRect(
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
-                child: Text("Child"),
-              ),
               Padding(
                 padding: const EdgeInsets.all(12),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Titel", style: Theme.of(context).textTheme.titleLarge),
+                    Text(newsItem.title, style: Theme.of(context).textTheme.titleLarge),
                     const SizedBox(height: 6),
-                    Text("Beschreibung", style: Theme.of(context).textTheme.bodyMedium),
+                    Text(newsItem.description, style: Theme.of(context).textTheme.bodyMedium),
                     const SizedBox(height: 6),
-                    Text("20.10.2025", style: const TextStyle(color: Colors.grey))
+                    Text('${newsItem.date.day}.${newsItem.date.month}.${newsItem.date.year}', style: const TextStyle(color: Colors.grey))
                   ],
                 ),
               )

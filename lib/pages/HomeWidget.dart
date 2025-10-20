@@ -3,7 +3,7 @@
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: HomeWidget.dart
- *  * Created on: 20.10.25, 08:34
+ *  * Created on: 20.10.25, 11:23
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
@@ -20,6 +20,8 @@ import 'package:smayl/pages/SettingsWidget.dart';
 import 'package:smayl/pages/StartWidget.dart';
 import 'package:smayl/pages/MenuWidget.dart';
 
+import '../utils/NewsItem.dart';
+
 class HomeWidget extends StatefulWidget {
 
   @override
@@ -32,7 +34,12 @@ class _HomeWidgetState extends State<HomeWidget> {
 
   int pageIndex = 0;
   List<Widget> pages = [
-    StartWidget(),
+    StartWidget(
+      newsList: [
+        NewsItem("Parkplatzproblem", "Die Hochschule weiß über das Parkplatz-Problem Bescheid und bemüht sich um eine nahe Lösung. Wir bitten daher um Verständnis.", DateTime(2025, 10, 20)),
+        NewsItem("Titel Test", "Beschreibung Test", DateTime(2025, 1, 11))
+      ],
+    ),
     MenuWidget(),
     ParkWidget(),
     SettingsWidget(),
