@@ -15,8 +15,6 @@
  *
  */
 
-import 'package:uuid/v4.dart';
-
 class NewsItem {
 
   final String uniqueId;
