@@ -3,7 +3,7 @@
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: HomeWidget.dart
- *  * Created on: 20.10.25, 11:23
+ *  * Created on: 20.10.25, 11:50
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
@@ -47,7 +47,9 @@ class _HomeWidgetState extends State<HomeWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData themeData = Theme.of(context);
     return Scaffold(
+      backgroundColor: themeData.bottomNavigationBarTheme.backgroundColor,
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (value) {
           setState(() {
@@ -60,14 +62,14 @@ class _HomeWidgetState extends State<HomeWidget> {
           NavigationDestination(icon: Icon(Icons.local_parking), label: "Parken", selectedIcon: Icon(Icons.local_parking_outlined),),
           NavigationDestination(icon: Icon(Icons.settings_applications), label: "Einstellungen", selectedIcon: Icon(Icons.settings_applications_outlined),),
         ],
-        backgroundColor: Colors.pink,
-        indicatorColor: Color.fromRGBO(30, 233, 164, 100),
+        indicatorColor: themeData.bottomNavigationBarTheme.selectedItemColor,
         selectedIndex: pageIndex,
       ),
       body: pages[pageIndex],
       appBar: AppBar(
-        title: Text("SMAYL 2.0"),
-        backgroundColor: Colors.pink,
+        //title: Text("SMAYL 2.0"),
+        flexibleSpace: Image.asset('assets/appbanner.png', fit: BoxFit.fill,),
+        backgroundColor: Colors.transparent,
         foregroundColor: Colors.white,
       ),
     );
