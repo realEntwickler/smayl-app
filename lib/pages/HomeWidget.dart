@@ -65,6 +65,11 @@ class _HomeWidgetState extends State<HomeWidget> {
         selectedIndex: pageIndex,
       ),
       body: pages[pageIndex],
+      appBar: AppBar(
+        title: Text("SMAYL 2.0"),
+        backgroundColor: Colors.pink,
+        foregroundColor: Colors.white,
+      ),
     );
   }
 }
