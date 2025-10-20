@@ -1,9 +1,9 @@
 /*
  *
- *  * (c) 2025 Nils Kevin Körting-Eberhardt (realEntwickler)
+ *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: SettingsWidget.dart
- *  * Created on: 20.10.25, 13:40
+ *  * Created on: 20.10.25, 13:53
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
