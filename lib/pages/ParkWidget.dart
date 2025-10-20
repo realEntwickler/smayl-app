@@ -3,7 +3,7 @@
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: ParkWidget.dart
- *  * Created on: 20.10.25, 13:53
+ *  * Created on: 20.10.25, 21:43
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
@@ -17,14 +17,22 @@
 
 import 'package:flutter/material.dart';
 
-class ParkWidget extends StatelessWidget {
+class ParkWidget extends StatefulWidget {
 
   const ParkWidget({super.key});
 
   @override
+  State<StatefulWidget> createState() {
+    return _ParkWidgetState();
+  }
+}
+
+class _ParkWidgetState extends State<ParkWidget> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Text("Parken"),
+      appBar: AppBar(
+       ),
     );
   }
 
