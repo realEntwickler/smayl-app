@@ -1,3 +1,20 @@
+/*
+ *
+ *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
+ *  *
+ *  * File: widget_test.dart
+ *  * Created on: 20.10.25, 13:53
+ *  *
+ *  * This file is part of the project "SMAYL 2.0".
+ *  *
+ *  * Licensed under the Creative Commons Attribution - NonCommercial -
+ *  * NoDerivatives 4.0 International License (CC BY-NC-ND 4.0).
+ *  *
+ *  * For more information about this license, please visit:
+ *  * https://creativecommons.org/licenses/by-nc-nd/4.0/
+ *
+ */
+
 // This is a basic Flutter widget test.
 //
 // To perform an interaction with a widget in your test, use the WidgetTester
