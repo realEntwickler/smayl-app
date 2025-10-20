@@ -1,9 +1,9 @@
 /*
  *
- *  * (c) 2025 Nils Kevin Körting-Eberhardt (realEntwickler)
+ *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: GeneratedPluginRegistrant.java
- *  * Created on: 20.10.25, 13:40
+ *  * Created on: 20.10.25, 13:58
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
@@ -32,5 +32,10 @@ import io.flutter.embedding.engine.FlutterEngine;
 public final class GeneratedPluginRegistrant {
   private static final String TAG = "GeneratedPluginRegistrant";
   public static void registerWith(@NonNull FlutterEngine flutterEngine) {
+    try {
+      flutterEngine.getPlugins().add(new io.flutter.plugins.sharedpreferences.SharedPreferencesPlugin());
+    } catch (Exception e) {
+      Log.e(TAG, "Error registering plugin shared_preferences_android, io.flutter.plugins.sharedpreferences.SharedPreferencesPlugin", e);
+    }
   }
 }
