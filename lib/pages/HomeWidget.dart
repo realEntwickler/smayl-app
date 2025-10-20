@@ -3,7 +3,7 @@
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: HomeWidget.dart
- *  * Created on: 19.10.25, 11:08
+ *  * Created on: 20.10.25, 08:34
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
@@ -15,16 +15,28 @@
  *
  */
 import 'package:flutter/material.dart';
+import 'package:smayl/pages/ParkWidget.dart';
+import 'package:smayl/pages/SettingsWidget.dart';
+import 'package:smayl/pages/StartWidget.dart';
+import 'package:smayl/pages/MenuWidget.dart';
 
 class HomeWidget extends StatefulWidget {
+
   @override
   State<StatefulWidget> createState() {
-    return _StartHomeWidgetState();
+    return _HomeWidgetState();
   }
 }
 
-class _StartHomeWidgetState extends State<HomeWidget> {
+class _HomeWidgetState extends State<HomeWidget> {
+
   int pageIndex = 0;
+  List<Widget> pages = [
+    StartWidget(),
+    MenuWidget(),
+    ParkWidget(),
+    SettingsWidget(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +57,7 @@ class _StartHomeWidgetState extends State<HomeWidget> {
         indicatorColor: Color.fromRGBO(30, 233, 164, 100),
         selectedIndex: pageIndex,
       ),
+      body: pages[pageIndex],
     );
   }
 }
