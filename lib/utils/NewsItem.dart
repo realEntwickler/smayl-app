@@ -3,7 +3,7 @@
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: NewsItem.dart
- *  * Created on: 20.10.25, 14:47
+ *  * Created on: 20.10.25, 21:26
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
@@ -15,13 +15,17 @@
  *
  */
 
+import 'package:uuid/v4.dart';
+
 class NewsItem {
 
-  final String uniqueId;
+  late String uniqueId;
   final String title;
   final String description;
   final String author;
   final DateTime date;
 
-  NewsItem(this.uniqueId, this.title, this.description, this.author, this.date);
+  NewsItem(this.title, this.description, this.author, this.date) {
+    uniqueId = UuidV4().generate().toString();
+  }
 }

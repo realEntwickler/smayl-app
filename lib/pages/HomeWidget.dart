@@ -3,7 +3,7 @@
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: HomeWidget.dart
- *  * Created on: 20.10.25, 14:47
+ *  * Created on: 20.10.25, 21:26
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
@@ -37,9 +37,9 @@ class _HomeWidgetState extends State<HomeWidget> {
   List<Widget> pages = [
     StartWidget(
       newsList: [
-        NewsItem(UuidV4().generate().toString(), "Test News 1", "Test Beschreibung 1", "Nils Kevin Körting-Eberhardt", DateTime(2025, 10, 20)),
-        NewsItem(UuidV4().generate().toString(), "Test News 2", "Test Beschreibung 2", "Bit Burger", DateTime(2025, 1, 11)),
-        NewsItem(UuidV4().generate().toString(), "Test News 3", "Test Beschreibung 3", "Paul Ahner", DateTime(2025, 1, 11))
+        NewsItem("Test News 1", "Test Beschreibung 1", "Nils Kevin Körting-Eberhardt", DateTime(2025, 10, 20)),
+        NewsItem("Test News 2", "Test Beschreibung 2", "Bit Burger", DateTime(2025, 1, 11)),
+        NewsItem("Test News 3", "Test Beschreibung 3", "Paul Ahner", DateTime(2025, 1, 11)),
       ],
     ),
     MenuWidget(),
