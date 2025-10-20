@@ -1,9 +1,9 @@
 /*
  *
- *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
+ *  * (c) 2025 Nils Kevin Körting-Eberhardt (realEntwickler)
  *  *
  *  * File: StartWidget.dart
- *  * Created on: 20.10.25, 11:23
+ *  * Created on: 20.10.25, 13:40
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
@@ -39,6 +39,10 @@ class StartWidget extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              ClipRRect(
+                borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
+                child: Text("NewsID: ${newsItem.uniqueId}"),
+              ),
               Padding(
                 padding: const EdgeInsets.all(12),
                 child: Column(
