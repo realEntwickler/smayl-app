@@ -2,8 +2,8 @@
  *
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
- *  * File: StartWidget.dart
- *  * Last edited on: 21.10.25, 21:03
+ *  * File: NewsWidget.dart
+ *  * Last edited on: 21.10.25, 21:05
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
@@ -21,11 +21,11 @@ import 'package:flutter/material.dart';
 
 import '../utils/NewsItem.dart';
 
-class StartWidget extends StatelessWidget {
+class NewsWidget extends StatelessWidget {
 
   final List<NewsItem> newsList;
 
-  const StartWidget({super.key, required this.newsList});
+  const NewsWidget({super.key, required this.newsList});
 
   @override
   Widget build(BuildContext context) {

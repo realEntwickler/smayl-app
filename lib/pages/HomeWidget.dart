@@ -3,7 +3,7 @@
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: HomeWidget.dart
- *  * Last edited on: 21.10.25, 21:03
+ *  * Last edited on: 21.10.25, 21:05
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
@@ -20,7 +20,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smayl/pages/ParkWidget.dart';
 import 'package:smayl/pages/SettingsWidget.dart';
-import 'package:smayl/pages/StartWidget.dart';
+import 'package:smayl/pages/NewsWidget.dart';
 import 'package:smayl/pages/MenuWidget.dart';
 import 'package:smayl/provider/ThemeProvider.dart';
 
@@ -43,7 +43,7 @@ class HomeWidget extends StatefulWidget {
 class _HomeWidgetState extends State<HomeWidget> {
   int pageIndex = 0;
   List<Widget> pages = [
-    StartWidget(
+    NewsWidget(
       newsList: [
         NewsItem(
           "Test News 1",
@@ -84,9 +84,9 @@ class _HomeWidgetState extends State<HomeWidget> {
         },
         destinations: [
           NavigationDestination(
-            icon: Icon(Icons.home),
-            label: "Start",
-            selectedIcon: Icon(Icons.home_outlined),
+            icon: Icon(Icons.newspaper),
+            label: "News",
+            selectedIcon: Icon(Icons.newspaper_outlined),
           ),
           NavigationDestination(
             icon: Icon(Icons.menu),
