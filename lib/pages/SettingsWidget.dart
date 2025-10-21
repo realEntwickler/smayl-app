@@ -3,7 +3,7 @@
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: SettingsWidget.dart
- *  * Last edited on: 21.10.25, 09:10
+ *  * Last edited on: 21.10.25, 09:17
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
@@ -68,6 +68,16 @@ class _SettingsWidgetState extends State<SettingsWidget> {
             secondary: Icon(Icons.notifications),
           )
         ],
+      ),
+      bottomNavigationBar: Container(
+        color: Colors.grey,
+        padding: EdgeInsets.all(12),
+        child: Text (
+            '© ${DateTime.now().year} Nils Kevin Körting-Eberhardt für HöV Rheinland-Pfalz • SMAYL 2.0',
+          textAlign: TextAlign.center,
+          style: TextStyle(color: Colors.black54, fontSize: 12),
+        ),
+
       ),
     );
   }
