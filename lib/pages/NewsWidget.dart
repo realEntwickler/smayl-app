@@ -3,7 +3,7 @@
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: NewsWidget.dart
- *  * Last edited on: 21.10.25, 21:11
+ *  * Last edited on: 21.10.25, 21:44
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
@@ -18,8 +18,11 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:smayl/provider/ThemeProvider.dart';
 
 import '../utils/NewsItem.dart';
+import 'NewsDetailPageWidget.dart';
 
 class NewsWidget extends StatelessWidget {
 
@@ -29,6 +32,7 @@ class NewsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text("Neuigkeiten"),
@@ -46,45 +50,13 @@ class NewsWidget extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
-                  child: Text("NewsID: ${newsItem.uniqueId}"),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(12),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(newsItem.title, style: Theme
-                          .of(context)
-                          .textTheme
-                          .titleLarge),
-                      const SizedBox(height: 6),
-                      Text(newsItem.description, style: Theme
-                          .of(context)
-                          .textTheme
-                          .bodyMedium),
-                      const SizedBox(height: 6),
-                      Row(
-                        children: [
-                          CircleAvatar(
-                            radius: 12,
-                            child:
-                            Text(newsItem.author[0], style: TextStyle(
-                                color: generateRandomColor(75),
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold)),
-                          ),
-                          SizedBox(width: 6,),
-                          Text('${newsItem.author} • ${newsItem.date
-                              .day}.${newsItem.date.month}.${newsItem.date
-                              .year} • ${newsItem.date.hour}:${newsItem.date
-                              .minute} Uhr', style: const TextStyle(color: Colors
-                              .grey))
-                        ],
-                      ),
-                    ],
-                  ),
+                ListTile(
+                  title: Text(newsItem.title, style: themeProvider.themeData.textTheme.titleLarge),
+                  subtitle: Text(newsItem.description, maxLines: 2, overflow: TextOverflow.ellipsis,),
+                  trailing: Icon(Icons.chevron_right),
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => NewsDetailPageWidget(newsItem: newsItem)));
+                  },
                 )
               ],
             ),

@@ -3,7 +3,7 @@
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: HomeWidget.dart
- *  * Last edited on: 21.10.25, 21:07
+ *  * Last edited on: 21.10.25, 21:44
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
@@ -43,26 +43,38 @@ class _HomeWidgetState extends State<HomeWidget> {
   int pageIndex = 0;
   List<Widget> pages = [
     NewsWidget(
-      newsList: [
-        NewsItem(
-          "Test News 1",
-          "Test Beschreibung 1",
-          "Nils Kevin Körting-Eberhardt",
-          DateTime(2025, 10, 20, 8, 18),
-        ),
-        NewsItem(
-          "Test News 2",
-          "Test Beschreibung 2",
-          "Bit Burger",
-          DateTime(2025, 1, 01, 15, 30),
-        ),
-        NewsItem(
-          "Test News 3",
-          "Test Beschreibung 3",
-          "Paul Ahner",
-          DateTime(2025, 2, 09, 11, 44),
-        ),
-      ],
+        newsList: [
+          NewsItem(
+            "Neuer Semesterstart an der HÖV Rheinland-Pfalz",
+            "Am Campus Mayen startet das neue Wintersemester mit zahlreichen Einführungsveranstaltungen und spannenden Projekten für Erstsemester.",
+            "Hochschulkommunikation",
+            DateTime(2025, 10, 20, 9, 00),
+          ),
+          NewsItem(
+            "Digitalisierung in der öffentlichen Verwaltung",
+            "Das Land Rheinland-Pfalz treibt die Modernisierung der Verwaltung mit neuen E-Government-Projekten weiter voran.",
+            "Presseamt RLP",
+            DateTime(2025, 9, 15, 14, 45),
+          ),
+          NewsItem(
+            "Neue Mensa-Angebote für Studierende",
+            "Ab November gibt es täglich wechselnde vegetarische und vegane Gerichte. Feedback kann über die Campus-App gegeben werden.",
+            "Campus Service",
+            DateTime(2025, 11, 1, 12, 30),
+          ),
+          NewsItem(
+            "Autofreies Gelbachtal begeistert Besucher",
+            "Über 1.000 Gäste nutzten das autofreie Wochenende für Radtouren und Wanderungen. Die HÖV war an der Organisation beteiligt.",
+            "Projektteam Verwaltungspraxis",
+            DateTime(2025, 7, 14, 10, 10),
+          ),
+          NewsItem(
+            "Neue Lernräume am Campus Mayen eröffnet",
+            "Studierende können sich über moderne Arbeitsplätze, schnelles WLAN und verlängerte Öffnungszeiten freuen.",
+            "IT-Service HÖV",
+            DateTime(2025, 10, 10, 8, 45),
+          ),
+        ]
     ),
     MenuWidget(),
     ParkWidget(),
