@@ -3,7 +3,7 @@
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: StartWidget.dart
- *  * Created on: 21.10.25, 09:10
+ *  * Last edited on: 21.10.25, 09:10
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
