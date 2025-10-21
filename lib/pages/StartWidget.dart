@@ -3,7 +3,7 @@
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: StartWidget.dart
- *  * Created on: 21.10.25, 09:06
+ *  * Created on: 21.10.25, 09:10
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
@@ -59,7 +59,7 @@ class StartWidget extends StatelessWidget {
                         CircleAvatar(
                           radius: 12,
                           child:
-                            Text(newsItem.author[0], style: TextStyle(color: Color.fromRGBO(Random().nextInt(255), Random().nextInt(255), Random().nextInt(255), 50), fontSize: 12),),
+                            Text(newsItem.author[0], style: TextStyle(color: generateRandomColor(75), fontSize: 12),),
                         ),
                         SizedBox(width: 6,),
                         Text('${newsItem.author} • ${newsItem.date.day}.${newsItem.date.month}.${newsItem.date.year}', style: const TextStyle(color: Colors.grey))
@@ -73,6 +73,11 @@ class StartWidget extends StatelessWidget {
         );
       },
     );
+  }
+
+  Color generateRandomColor(double opacity) {
+    Random random = Random();
+    return Color.fromRGBO(random.nextInt(255), random.nextInt(255), random.nextInt(255), opacity);
   }
 
 }
