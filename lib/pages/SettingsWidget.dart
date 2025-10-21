@@ -3,7 +3,7 @@
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: SettingsWidget.dart
- *  * Created on: 21.10.25, 20:16
+ *  * Last edited on: 21.10.25, 20:31
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
@@ -34,12 +34,12 @@ class _SettingsWidgetState extends State<SettingsWidget> {
   bool _notify = true;
 
   final colors = {
+    "Standard": Color.fromRGBO(189, 0, 64, 100),
     "Indigo": Colors.indigo,
     "Blau": Colors.blue,
-    "Standard": Colors.pink,
-    "Orange": Colors.deepOrange,
+    "Orange": Colors.orange,
     "Lila": Colors.purple,
-    "Türkis": Colors.teal,
+    "Türkis": Colors.tealAccent,
   };
 
   @override
@@ -66,7 +66,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
     String currentColorName = colors.entries
         .firstWhere(
           (element) => element.value == themeProvider.primaryColor,
-          orElse: () => const MapEntry('Standard', Colors.pink),
+          orElse: () => const MapEntry('Standard', Color.fromRGBO(189, 0, 64, 100)),
         )
         .key;
     return Scaffold(
