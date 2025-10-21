@@ -3,7 +3,7 @@
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: HomeWidget.dart
- *  * Last edited on: 21.10.25, 21:44
+ *  * Last edited on: 21.10.25, 21:45
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
@@ -73,6 +73,36 @@ class _HomeWidgetState extends State<HomeWidget> {
             "Studierende können sich über moderne Arbeitsplätze, schnelles WLAN und verlängerte Öffnungszeiten freuen.",
             "IT-Service HÖV",
             DateTime(2025, 10, 10, 8, 45),
+          ),
+          NewsItem(
+            "Verwaltungsdigitalisierung: Neues Bürgerportal startet",
+            "Mit dem neuen Online-Portal können Bürgerinnen und Bürger ab sofort Anträge digital einreichen und Bearbeitungsstände online verfolgen.",
+            "Ministerium des Innern RLP",
+            DateTime(2025, 10, 19, 10, 15),
+          ),
+          NewsItem(
+            "Studierende entwickeln App für kommunale Verwaltung",
+            "Ein Team der HÖV Rheinland-Pfalz hat im Rahmen eines Praxisprojekts eine mobile Anwendung zur Verbesserung interner Abläufe in Rathäusern entwickelt.",
+            "Fachbereich Verwaltungsinformatik",
+            DateTime(2025, 9, 5, 14, 20),
+          ),
+          NewsItem(
+            "Neues Fortbildungsprogramm veröffentlicht",
+            "Die Hochschule bietet ab 2026 ein erweitertes Angebot an Online-Seminaren für Beschäftigte im öffentlichen Dienst an.",
+            "Weiterbildungszentrum HÖV",
+            DateTime(2025, 10, 3, 9, 45),
+          ),
+          NewsItem(
+            "Erfolgreiche Kooperation mit der Stadt Koblenz",
+            "Gemeinsam mit der Stadtverwaltung Koblenz wurde ein Pilotprojekt zur papierlosen Aktenführung abgeschlossen.",
+            "Projektgruppe E-Akte",
+            DateTime(2025, 8, 22, 11, 10),
+          ),
+          NewsItem(
+            "Neuer Rekord bei den Bewerberzahlen",
+            "Für das kommende Studienjahr verzeichnet die HÖV Rheinland-Pfalz erstmals über 2.000 Bewerbungen für das duale Studium.",
+            "Studiensekretariat",
+            DateTime(2025, 10, 1, 8, 30),
           ),
         ]
     ),
