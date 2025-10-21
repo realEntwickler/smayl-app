@@ -3,7 +3,7 @@
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: HomeWidget.dart
- *  * Last edited on: 21.10.25, 09:10
+ *  * Last edited on: 21.10.25, 09:11
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
@@ -19,7 +19,6 @@ import 'package:smayl/pages/ParkWidget.dart';
 import 'package:smayl/pages/SettingsWidget.dart';
 import 'package:smayl/pages/StartWidget.dart';
 import 'package:smayl/pages/MenuWidget.dart';
-import 'package:uuid/v4.dart';
 
 import '../utils/NewsItem.dart';
 
