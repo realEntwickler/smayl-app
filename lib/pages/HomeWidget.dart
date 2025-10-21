@@ -3,7 +3,7 @@
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: HomeWidget.dart
- *  * Created on: 21.10.25, 13:33
+ *  * Last edited on: 21.10.25, 20:44
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
@@ -14,6 +14,8 @@
  *  * https://creativecommons.org/licenses/by-nc-nd/4.0/
  *
  */
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smayl/pages/ParkWidget.dart';
@@ -26,6 +28,12 @@ import '../utils/NewsItem.dart';
 import 'MySmaylWidget.dart';
 
 class HomeWidget extends StatefulWidget {
+
+  static late bool exclusiveBannerBehaviour;
+
+  HomeWidget() {
+    exclusiveBannerBehaviour = false;
+  }
 
   @override
   State<StatefulWidget> createState() {
@@ -74,7 +82,7 @@ class _HomeWidgetState extends State<HomeWidget> {
       body: pages[pageIndex],
       appBar: AppBar(
         //title: Text("SMAYL 2.0"),
-        flexibleSpace: Image.asset('assets/appbanner.png', fit: BoxFit.fill,),
+        flexibleSpace: Image.asset('assets/appbanner.png', fit: (HomeWidget.exclusiveBannerBehaviour ? BoxFit.fill : BoxFit.fitWidth),),
         backgroundColor: Colors.transparent,
         foregroundColor: Colors.white,
       ),

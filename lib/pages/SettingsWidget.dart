@@ -3,7 +3,7 @@
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: SettingsWidget.dart
- *  * Last edited on: 21.10.25, 20:33
+ *  * Last edited on: 21.10.25, 20:44
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
@@ -18,6 +18,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:smayl/pages/HomeWidget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../provider/ThemeProvider.dart';
@@ -120,6 +121,14 @@ class _SettingsWidgetState extends State<SettingsWidget> {
               }).toList(),
             ),
           ),
+          SettingsItem("App-Banner", "Möchtest du die exklusive Version des App-Banners (Credits: C. Pawluczuk) ?", Switch(
+            value: HomeWidget.exclusiveBannerBehaviour,
+            onChanged: (value) {
+              setState(() {
+                HomeWidget.exclusiveBannerBehaviour = value;
+              });
+            },
+          )),
           Divider(height: 1),
           SettingsItem("Datenschutz & Impressum", "Hier findest du Hinweise zur Datenverarbeitung und zum Herausgeber dieser App.", MaterialButton(
             child: Text("Hinweise öffnen"),
