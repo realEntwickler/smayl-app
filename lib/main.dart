@@ -3,7 +3,7 @@
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: main.dart
- *  * Last edited on: 21.10.25, 09:10
+ *  * Created on: 21.10.25, 12:11
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
@@ -16,10 +16,21 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:smayl/pages/HomeWidget.dart';
+import 'package:smayl/provider/ThemeProvider.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  final themeProvider = ThemeProvider();
+  await themeProvider.loadColor();
+
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => themeProvider,
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -28,8 +39,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return MaterialApp(
         debugShowCheckedModeBanner: true,
+        theme: themeProvider.themeData,
         home: HomeWidget());
   }
 }
