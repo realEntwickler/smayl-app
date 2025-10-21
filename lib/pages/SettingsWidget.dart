@@ -3,7 +3,7 @@
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: SettingsWidget.dart
- *  * Created on: 21.10.25, 19:01
+ *  * Created on: 21.10.25, 20:16
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
@@ -18,6 +18,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../provider/ThemeProvider.dart';
 import '../utils/SettingsItem.dart';
@@ -38,9 +39,9 @@ class _SettingsWidgetState extends State<SettingsWidget> {
     "Standard": Colors.pink,
     "Orange": Colors.deepOrange,
     "Lila": Colors.purple,
-    "Türkis": Colors.teal
+    "Türkis": Colors.teal,
   };
-  
+
   @override
   void initState() {
     _loadSettings();
@@ -62,43 +63,70 @@ class _SettingsWidgetState extends State<SettingsWidget> {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
-    String currentColorName = colors.entries.firstWhere((element) => element.value == themeProvider.primaryColor, orElse: () => const MapEntry('Standard', Colors.pink),).key;
+    String currentColorName = colors.entries
+        .firstWhere(
+          (element) => element.value == themeProvider.primaryColor,
+          orElse: () => const MapEntry('Standard', Colors.pink),
+        )
+        .key;
     return Scaffold(
       appBar: AppBar(title: Text("Einstellungen")),
       body: ListView(
         children: [
-          SettingsItem("Benachrichtigungen", "Möchtest du Push-Benachrichtigungen erhalten?", Switch(value: _notify,onChanged: (value) {
-            setState(() {
-              _notify = value;
-            });
-          },)),
-          Divider (height: 1,),
-          SettingsItem("Primärfarbe", "Bestimmt die Hauptfarbe der App", DropdownMenu<String>(
-            initialSelection: currentColorName,
-            width: 250,
-            label: Text("Farbe auswählen"),
-            leadingIcon: Icon(Icons.color_lens, color: themeProvider.primaryColor,),
-            onSelected: (String? value) {
-              if (value != null) {
-                final color = colors[value]!;
-                setState(() => currentColorName = value);
-                themeProvider.setPrimaryColor(color);
-              }
-            },
-            dropdownMenuEntries: colors.entries.map((e) {
-              return DropdownMenuEntry<String>(
+          SettingsItem(
+            "Benachrichtigungen",
+            "Möchtest du Push-Benachrichtigungen erhalten?",
+            Switch(
+              value: _notify,
+              onChanged: (value) {
+                setState(() {
+                  _notify = value;
+                });
+              },
+            ),
+          ),
+          Divider(height: 1),
+          SettingsItem(
+            "Primärfarbe",
+            "Bestimmt die Hauptfarbe der App",
+            DropdownMenu<String>(
+              initialSelection: currentColorName,
+              width: 250,
+              label: Text("Farbe auswählen"),
+              leadingIcon: Icon(
+                Icons.color_lens,
+                color: themeProvider.primaryColor,
+              ),
+              onSelected: (String? value) {
+                if (value != null) {
+                  final color = colors[value]!;
+                  setState(() => currentColorName = value);
+                  themeProvider.setPrimaryColor(color);
+                }
+              },
+              dropdownMenuEntries: colors.entries.map((e) {
+                return DropdownMenuEntry<String>(
                   value: e.key,
                   label: e.key,
                   leadingIcon: Container(
                     width: 20,
                     height: 20,
                     decoration: BoxDecoration(
-                        color: e.value,
-                        shape: BoxShape.circle
+                      color: e.value,
+                      shape: BoxShape.circle,
                     ),
-                  )
-              );
-            }).toList(),
+                  ),
+                );
+              }).toList(),
+            ),
+          ),
+          Divider(height: 1),
+          SettingsItem("Datenschutz & Impressum", "Hier findest du Hinweise zur Datenverarbeitung und zum Herausgeber dieser App.", MaterialButton(
+            child: Text("Hinweise öffnen"),
+            onPressed: () {
+              var uri = Uri.parse("https://hoev.rlp.de/ueber-uns/impressum");
+              _launchUrl(uri);
+            }
           ))
         ],
       ),
@@ -106,13 +134,17 @@ class _SettingsWidgetState extends State<SettingsWidget> {
         color: Colors.grey,
         padding: EdgeInsets.all(12),
         child: Text(
-          '© ${DateTime
-              .now()
-              .year} Nils Kevin Körting-Eberhardt für HöV Rheinland-Pfalz • SMAYL 2.0',
+          '© ${DateTime.now().year} Nils Kevin Körting-Eberhardt für HöV Rheinland-Pfalz • SMAYL 2.0',
           textAlign: TextAlign.center,
           style: TextStyle(color: Colors.white, fontSize: 15),
         ),
       ),
     );
+  }
+
+  Future<void> _launchUrl(Uri uri) async {
+    if (! await launchUrl(uri)) {
+      throw Exception("$uri konnte nicht aufgerufen werden.");
+    }
   }
 }
