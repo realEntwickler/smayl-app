@@ -3,7 +3,7 @@
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: SettingsWidget.dart
- *  * Created on: 21.10.25, 12:11
+ *  * Created on: 21.10.25, 14:26
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
@@ -31,15 +31,15 @@ class SettingsWidget extends StatefulWidget {
 class _SettingsWidgetState extends State<SettingsWidget> {
   bool _notify = true;
 
-  List<Color> colors = <Color>[
-    Colors.indigo,
-    Colors.blue,
-    Colors.pink,
-    Colors.deepOrange,
-    Colors.teal,
-    Colors.redAccent
-  ];
-
+  final colors = {
+    "Indigo": Colors.indigo,
+    "Blau": Colors.blue,
+    "Standard": Colors.pink,
+    "Orange": Colors.deepOrange,
+    "Lila": Colors.purple,
+    "Türkis": Colors.teal
+  };
+  
   @override
   void initState() {
     _loadSettings();
@@ -61,6 +61,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
+    String currentColorName = colors.entries.firstWhere((element) => element.value == themeProvider.primaryColor, orElse: () => const MapEntry('Standard', Colors.pink),).key;
     return Scaffold(
       appBar: AppBar(title: Text("Einstellungen")),
       body: ListView(
@@ -80,27 +81,40 @@ class _SettingsWidgetState extends State<SettingsWidget> {
           SizedBox(height: 12),
           Text("Primärfarbe auswählen"),
           SizedBox(height: 6),
-          Wrap(
-            spacing: 12,
-            runSpacing: 12,
-            children: colors.map((color) {
-              final isSelected = color == themeProvider.primaryColor;
-              return GestureDetector(
-                onTap: () => themeProvider.setPrimaryColor(color),
-                child: Container(
-                  width: 48,
-                  height: 48,
-                  decoration: BoxDecoration(
-                      color: color,
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                          color: isSelected ? Colors.black : Colors.transparent,
-                          width: 3
-                      )
-                  ),
-                )
+          DropdownButtonFormField<String>(
+            value: currentColorName,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                contentPadding:
+                  EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+              ),
+            items: colors.entries.map((entry) {
+              return DropdownMenuItem<String> (
+                value: entry.key,
+                child: Row(
+                  children: [
+                    Container(
+                      width: 20,
+                      height: 20,
+                      margin: EdgeInsets.only(right: 10),
+                      decoration: BoxDecoration(
+                        color: entry.value,
+                        shape: BoxShape.circle
+                      ),
+                    ),
+                    Text(entry.key),
+                  ],
+                ),
               );
             }).toList(),
+            onChanged: (value) {
+              if (value != null) {
+                final selectedColor = colors[value]!;
+                themeProvider.setPrimaryColor(selectedColor);
+              }
+            },
           )
         ],
       ),
@@ -112,7 +126,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
               .now()
               .year} Nils Kevin Körting-Eberhardt für HöV Rheinland-Pfalz • SMAYL 2.0',
           textAlign: TextAlign.center,
-          style: TextStyle(color: Colors.black54, fontSize: 12),
+          style: TextStyle(color: Colors.black54, fontSize: 15),
         ),
       ),
     );
