@@ -3,7 +3,7 @@
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: StartWidget.dart
- *  * Created on: 20.10.25, 20:59
+ *  * Created on: 21.10.25, 08:59
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
@@ -52,7 +52,17 @@ class StartWidget extends StatelessWidget {
                     const SizedBox(height: 6),
                     Text(newsItem.description, style: Theme.of(context).textTheme.bodyMedium),
                     const SizedBox(height: 6),
-                    Text('${newsItem.author} • ${newsItem.date.day}.${newsItem.date.month}.${newsItem.date.year}', style: const TextStyle(color: Colors.grey))
+                    Row(
+                      children: [
+                        CircleAvatar(
+                          radius: 12,
+                          child:
+                            Text(newsItem.author[0], style: TextStyle(color: Colors.white, fontSize: 12),),
+                        ),
+                        SizedBox(width: 6,),
+                        Text('${newsItem.author} • ${newsItem.date.day}.${newsItem.date.month}.${newsItem.date.year}', style: const TextStyle(color: Colors.grey))
+                      ],
+                    ),
                   ],
                 ),
               )
