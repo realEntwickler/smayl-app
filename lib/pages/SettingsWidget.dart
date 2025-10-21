@@ -3,7 +3,7 @@
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: SettingsWidget.dart
- *  * Created on: 21.10.25, 14:26
+ *  * Created on: 21.10.25, 14:35
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
@@ -81,40 +81,32 @@ class _SettingsWidgetState extends State<SettingsWidget> {
           SizedBox(height: 12),
           Text("Primärfarbe auswählen"),
           SizedBox(height: 6),
-          DropdownButtonFormField<String>(
-            value: currentColorName,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                contentPadding:
-                  EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-              ),
-            items: colors.entries.map((entry) {
-              return DropdownMenuItem<String> (
-                value: entry.key,
-                child: Row(
-                  children: [
-                    Container(
-                      width: 20,
-                      height: 20,
-                      margin: EdgeInsets.only(right: 10),
-                      decoration: BoxDecoration(
-                        color: entry.value,
-                        shape: BoxShape.circle
-                      ),
-                    ),
-                    Text(entry.key),
-                  ],
-                ),
-              );
-            }).toList(),
-            onChanged: (value) {
+          DropdownMenu<String>(
+            initialSelection: currentColorName,
+            width: 250,
+            label: Text("Farbe auswählen"),
+            leadingIcon: Icon(Icons.color_lens),
+            onSelected: (String? value) {
               if (value != null) {
-                final selectedColor = colors[value]!;
-                themeProvider.setPrimaryColor(selectedColor);
+                final color = colors[value]!;
+                setState(() => currentColorName = value);
+                themeProvider.setPrimaryColor(color);
               }
             },
+            dropdownMenuEntries: colors.entries.map((e) {
+              return DropdownMenuEntry<String>(
+                value: e.key,
+                label: e.key,
+                leadingIcon: Container(
+                  width: 20,
+                  height: 20,
+                  decoration: BoxDecoration(
+                    color: e.value,
+                    shape: BoxShape.circle
+                  ),
+                )
+              );
+            }).toList(),
           )
         ],
       ),
