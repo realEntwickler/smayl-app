@@ -3,7 +3,7 @@
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: SettingsWidget.dart
- *  * Last edited on: 21.10.25, 20:50
+ *  * Last edited on: 21.10.25, 21:03
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
@@ -132,7 +132,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
           Divider(height: 1),
           SettingsItem("Datenschutz & Impressum", "Hier findest du Hinweise zur Datenverarbeitung und zum Herausgeber dieser App.", MaterialButton(
             color: themeProvider.primaryColor,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(10)),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(12)),
             onPressed: () {
               var uri = Uri.parse("https://hoev.rlp.de/ueber-uns/impressum");
               _launchUrl(uri);

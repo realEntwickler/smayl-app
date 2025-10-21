@@ -3,7 +3,7 @@
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: HomeWidget.dart
- *  * Last edited on: 21.10.25, 20:44
+ *  * Last edited on: 21.10.25, 21:03
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
@@ -28,7 +28,6 @@ import '../utils/NewsItem.dart';
 import 'MySmaylWidget.dart';
 
 class HomeWidget extends StatefulWidget {
-
   static late bool exclusiveBannerBehaviour;
 
   HomeWidget() {
@@ -42,14 +41,28 @@ class HomeWidget extends StatefulWidget {
 }
 
 class _HomeWidgetState extends State<HomeWidget> {
-
   int pageIndex = 0;
   List<Widget> pages = [
     StartWidget(
       newsList: [
-        NewsItem("Test News 1", "Test Beschreibung 1", "Nils Kevin Körting-Eberhardt", DateTime(2025, 10, 20, 8, 18)),
-        NewsItem("Test News 2", "Test Beschreibung 2", "Bit Burger", DateTime(2025, 1, 01, 15, 30)),
-        NewsItem("Test News 3", "Test Beschreibung 3", "Paul Ahner", DateTime(2025, 2, 09, 11, 44)),
+        NewsItem(
+          "Test News 1",
+          "Test Beschreibung 1",
+          "Nils Kevin Körting-Eberhardt",
+          DateTime(2025, 10, 20, 8, 18),
+        ),
+        NewsItem(
+          "Test News 2",
+          "Test Beschreibung 2",
+          "Bit Burger",
+          DateTime(2025, 1, 01, 15, 30),
+        ),
+        NewsItem(
+          "Test News 3",
+          "Test Beschreibung 3",
+          "Paul Ahner",
+          DateTime(2025, 2, 09, 11, 44),
+        ),
       ],
     ),
     MenuWidget(),
@@ -70,19 +83,44 @@ class _HomeWidgetState extends State<HomeWidget> {
           });
         },
         destinations: [
-          NavigationDestination(icon: Icon(Icons.home), label: "Start", selectedIcon: Icon(Icons.home_outlined),),
-          NavigationDestination(icon: Icon(Icons.menu), label: "Menü", selectedIcon: Icon(Icons.menu_open),),
-          NavigationDestination(icon: Icon(Icons.local_parking), label: "Parken", selectedIcon: Icon(Icons.local_parking_outlined),),
-          NavigationDestination(icon: Image.asset("assets/applogo.png", height: 30, width: 30,), label: "MySMAYL"),
-          NavigationDestination(icon: Icon(Icons.settings_applications), label: "Einstellungen", selectedIcon: Icon(Icons.settings_applications_outlined),),
+          NavigationDestination(
+            icon: Icon(Icons.home),
+            label: "Start",
+            selectedIcon: Icon(Icons.home_outlined),
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.menu),
+            label: "Menü",
+            selectedIcon: Icon(Icons.menu_open),
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.local_parking),
+            label: "Parken",
+            selectedIcon: Icon(Icons.local_parking_outlined),
+          ),
+          NavigationDestination(
+            icon: Image.asset("assets/applogo.png", height: 30, width: 30),
+            label: "MySMAYL",
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.settings_applications),
+            label: "Einstellungen",
+            selectedIcon: Icon(Icons.settings_applications_outlined),
+          ),
         ],
-        indicatorColor: themeProvider.themeData.bottomNavigationBarTheme.selectedItemColor,
+        indicatorColor:
+            themeProvider.themeData.bottomNavigationBarTheme.selectedItemColor,
         selectedIndex: pageIndex,
       ),
       body: pages[pageIndex],
       appBar: AppBar(
         //title: Text("SMAYL 2.0"),
-        flexibleSpace: Image.asset('assets/appbanner.png', fit: (HomeWidget.exclusiveBannerBehaviour ? BoxFit.fill : BoxFit.fitWidth),),
+        flexibleSpace: Image.asset(
+          'assets/appbanner.png',
+          fit: (HomeWidget.exclusiveBannerBehaviour
+              ? BoxFit.fill
+              : BoxFit.fitWidth),
+        ),
         backgroundColor: Colors.transparent,
         foregroundColor: Colors.white,
       ),

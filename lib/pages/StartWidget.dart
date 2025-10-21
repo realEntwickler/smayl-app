@@ -3,7 +3,7 @@
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: StartWidget.dart
- *  * Last edited on: 21.10.25, 09:26
+ *  * Last edited on: 21.10.25, 21:03
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
@@ -35,7 +35,8 @@ class StartWidget extends StatelessWidget {
       itemBuilder: (context, index) {
         final NewsItem newsItem = newsList[index];
         return Card(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12)),
           elevation: 3,
           margin: const EdgeInsets.symmetric(vertical: 8),
           child: Column(
@@ -50,19 +51,32 @@ class StartWidget extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(newsItem.title, style: Theme.of(context).textTheme.titleLarge),
+                    Text(newsItem.title, style: Theme
+                        .of(context)
+                        .textTheme
+                        .titleLarge),
                     const SizedBox(height: 6),
-                    Text(newsItem.description, style: Theme.of(context).textTheme.bodyMedium),
+                    Text(newsItem.description, style: Theme
+                        .of(context)
+                        .textTheme
+                        .bodyMedium),
                     const SizedBox(height: 6),
                     Row(
                       children: [
                         CircleAvatar(
                           radius: 12,
                           child:
-                            Text(newsItem.author[0], style: TextStyle(color: generateRandomColor(75), fontSize: 12, fontWeight: FontWeight.bold)),
+                          Text(newsItem.author[0], style: TextStyle(
+                              color: generateRandomColor(75),
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold)),
                         ),
                         SizedBox(width: 6,),
-                        Text('${newsItem.author} • ${newsItem.date.day}.${newsItem.date.month}.${newsItem.date.year} • ${newsItem.date.hour}:${newsItem.date.minute} Uhr', style: const TextStyle(color: Colors.grey))
+                        Text('${newsItem.author} • ${newsItem.date
+                            .day}.${newsItem.date.month}.${newsItem.date
+                            .year} • ${newsItem.date.hour}:${newsItem.date
+                            .minute} Uhr', style: const TextStyle(color: Colors
+                            .grey))
                       ],
                     ),
                   ],
@@ -77,7 +91,8 @@ class StartWidget extends StatelessWidget {
 
   Color generateRandomColor(double opacity) {
     Random random = Random();
-    return Color.fromRGBO(random.nextInt(255), random.nextInt(255), random.nextInt(255), opacity);
+    return Color.fromRGBO(
+        random.nextInt(255), random.nextInt(255), random.nextInt(255), opacity);
   }
 
 }
