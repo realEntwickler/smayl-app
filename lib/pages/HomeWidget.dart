@@ -3,7 +3,7 @@
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: HomeWidget.dart
- *  * Created on: 21.10.25, 12:52
+ *  * Created on: 21.10.25, 13:33
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
@@ -23,6 +23,7 @@ import 'package:smayl/pages/MenuWidget.dart';
 import 'package:smayl/provider/ThemeProvider.dart';
 
 import '../utils/NewsItem.dart';
+import 'MySmaylWidget.dart';
 
 class HomeWidget extends StatefulWidget {
 
@@ -45,6 +46,7 @@ class _HomeWidgetState extends State<HomeWidget> {
     ),
     MenuWidget(),
     ParkWidget(),
+    MySmaylWidget(),
     SettingsWidget(),
   ];
 
@@ -63,6 +65,7 @@ class _HomeWidgetState extends State<HomeWidget> {
           NavigationDestination(icon: Icon(Icons.home), label: "Start", selectedIcon: Icon(Icons.home_outlined),),
           NavigationDestination(icon: Icon(Icons.menu), label: "Menü", selectedIcon: Icon(Icons.menu_open),),
           NavigationDestination(icon: Icon(Icons.local_parking), label: "Parken", selectedIcon: Icon(Icons.local_parking_outlined),),
+          NavigationDestination(icon: Image.asset("assets/applogo.png", height: 30, width: 30,), label: "MySMAYL"),
           NavigationDestination(icon: Icon(Icons.settings_applications), label: "Einstellungen", selectedIcon: Icon(Icons.settings_applications_outlined),),
         ],
         indicatorColor: themeProvider.themeData.bottomNavigationBarTheme.selectedItemColor,
