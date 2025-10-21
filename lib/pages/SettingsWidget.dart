@@ -3,7 +3,7 @@
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: SettingsWidget.dart
- *  * Created on: 21.10.25, 14:35
+ *  * Created on: 21.10.25, 19:01
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
@@ -20,6 +20,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../provider/ThemeProvider.dart';
+import '../utils/SettingsItem.dart';
 
 class SettingsWidget extends StatefulWidget {
   const SettingsWidget({super.key});
@@ -66,26 +67,17 @@ class _SettingsWidgetState extends State<SettingsWidget> {
       appBar: AppBar(title: Text("Einstellungen")),
       body: ListView(
         children: [
-          SwitchListTile(
-            title: Text("Benachrichtigungen"),
-            subtitle: Text("Möchtest du Push-Mittelungen erhalten?"),
-            value: _notify,
-            onChanged: (bool value) {
-              setState(() {
-                _notify = value;
-              });
-              _saveNotifySetting(value);
-            },
-            secondary: Icon(Icons.notifications),
-          ),
-          SizedBox(height: 12),
-          Text("Primärfarbe auswählen"),
-          SizedBox(height: 6),
-          DropdownMenu<String>(
+          SettingsItem("Benachrichtigungen", "Möchtest du Push-Benachrichtigungen erhalten?", Switch(value: _notify,onChanged: (value) {
+            setState(() {
+              _notify = value;
+            });
+          },)),
+          Divider (height: 1,),
+          SettingsItem("Primärfarbe", "Bestimmt die Hauptfarbe der App", DropdownMenu<String>(
             initialSelection: currentColorName,
             width: 250,
             label: Text("Farbe auswählen"),
-            leadingIcon: Icon(Icons.color_lens),
+            leadingIcon: Icon(Icons.color_lens, color: themeProvider.primaryColor,),
             onSelected: (String? value) {
               if (value != null) {
                 final color = colors[value]!;
@@ -95,19 +87,19 @@ class _SettingsWidgetState extends State<SettingsWidget> {
             },
             dropdownMenuEntries: colors.entries.map((e) {
               return DropdownMenuEntry<String>(
-                value: e.key,
-                label: e.key,
-                leadingIcon: Container(
-                  width: 20,
-                  height: 20,
-                  decoration: BoxDecoration(
-                    color: e.value,
-                    shape: BoxShape.circle
-                  ),
-                )
+                  value: e.key,
+                  label: e.key,
+                  leadingIcon: Container(
+                    width: 20,
+                    height: 20,
+                    decoration: BoxDecoration(
+                        color: e.value,
+                        shape: BoxShape.circle
+                    ),
+                  )
               );
             }).toList(),
-          )
+          ))
         ],
       ),
       bottomNavigationBar: Container(
