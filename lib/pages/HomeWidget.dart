@@ -3,7 +3,7 @@
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: HomeWidget.dart
- *  * Last edited on: 21.10.25, 21:05
+ *  * Last edited on: 21.10.25, 21:07
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
@@ -14,7 +14,6 @@
  *  * https://creativecommons.org/licenses/by-nc-nd/4.0/
  *
  */
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
