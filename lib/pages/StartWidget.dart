@@ -3,7 +3,7 @@
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: StartWidget.dart
- *  * Created on: 21.10.25, 08:59
+ *  * Created on: 21.10.25, 09:06
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
@@ -14,6 +14,8 @@
  *  * https://creativecommons.org/licenses/by-nc-nd/4.0/
  *
  */
+
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 
@@ -57,7 +59,7 @@ class StartWidget extends StatelessWidget {
                         CircleAvatar(
                           radius: 12,
                           child:
-                            Text(newsItem.author[0], style: TextStyle(color: Colors.white, fontSize: 12),),
+                            Text(newsItem.author[0], style: TextStyle(color: Color.fromRGBO(Random().nextInt(255), Random().nextInt(255), Random().nextInt(255), 50), fontSize: 12),),
                         ),
                         SizedBox(width: 6,),
                         Text('${newsItem.author} • ${newsItem.date.day}.${newsItem.date.month}.${newsItem.date.year}', style: const TextStyle(color: Colors.grey))
