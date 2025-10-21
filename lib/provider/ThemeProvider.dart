@@ -3,7 +3,7 @@
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: ThemeProvider.dart
- *  * Created on: 21.10.25, 12:11
+ *  * Created on: 21.10.25, 12:52
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  * 
@@ -35,13 +35,13 @@ class ThemeProvider extends ChangeNotifier {
 
   Future<void> loadColor() async {
     final prefs = await SharedPreferences.getInstance();
-    final colorValue = prefs.getInt("primaryColor") ?? Colors.pink.value;
+    final colorValue = prefs.getInt("primaryColor") ?? Colors.pink.toARGB32();
     _primaryColor = Color (colorValue);
     notifyListeners();
   }
 
   Future<void> saveColor() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setInt("primaryColor", _primaryColor.value);
+    await prefs.setInt("primaryColor", _primaryColor.toARGB32());
   }
 }

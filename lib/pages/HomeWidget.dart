@@ -3,7 +3,7 @@
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: HomeWidget.dart
- *  * Last edited on: 21.10.25, 09:22
+ *  * Created on: 21.10.25, 12:52
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
@@ -15,10 +15,12 @@
  *
  */
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:smayl/pages/ParkWidget.dart';
 import 'package:smayl/pages/SettingsWidget.dart';
 import 'package:smayl/pages/StartWidget.dart';
 import 'package:smayl/pages/MenuWidget.dart';
+import 'package:smayl/provider/ThemeProvider.dart';
 
 import '../utils/NewsItem.dart';
 
@@ -48,9 +50,9 @@ class _HomeWidgetState extends State<HomeWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData themeData = Theme.of(context);
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
-      backgroundColor: themeData.bottomNavigationBarTheme.backgroundColor,
+      backgroundColor: themeProvider.themeData.scaffoldBackgroundColor,
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (value) {
           setState(() {
@@ -63,7 +65,7 @@ class _HomeWidgetState extends State<HomeWidget> {
           NavigationDestination(icon: Icon(Icons.local_parking), label: "Parken", selectedIcon: Icon(Icons.local_parking_outlined),),
           NavigationDestination(icon: Icon(Icons.settings_applications), label: "Einstellungen", selectedIcon: Icon(Icons.settings_applications_outlined),),
         ],
-        indicatorColor: themeData.bottomNavigationBarTheme.selectedItemColor,
+        indicatorColor: themeProvider.themeData.bottomNavigationBarTheme.selectedItemColor,
         selectedIndex: pageIndex,
       ),
       body: pages[pageIndex],
