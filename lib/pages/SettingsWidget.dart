@@ -118,7 +118,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
               .now()
               .year} Nils Kevin Körting-Eberhardt für HöV Rheinland-Pfalz • SMAYL 2.0',
           textAlign: TextAlign.center,
-          style: TextStyle(color: Colors.black54, fontSize: 15),
+          style: TextStyle(color: Colors.white, fontSize: 15),
         ),
       ),
     );
