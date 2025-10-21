@@ -3,7 +3,7 @@
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: SettingsWidget.dart
- *  * Last edited on: 21.10.25, 20:31
+ *  * Last edited on: 21.10.25, 20:33
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
@@ -66,7 +66,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
     String currentColorName = colors.entries
         .firstWhere(
           (element) => element.value == themeProvider.primaryColor,
-          orElse: () => const MapEntry('Standard', Color.fromRGBO(189, 0, 64, 100)),
+          orElse: () => const MapEntry('Standard', Color.fromRGBO(189, 0, 64, 50)),
         )
         .key;
     return Scaffold(
