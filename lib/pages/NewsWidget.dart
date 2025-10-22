@@ -3,7 +3,7 @@
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: NewsWidget.dart
- *  * Last edited on: 21.10.25, 21:44
+ *  * Last edited on: 22.10.25, 21:57
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
@@ -34,34 +34,55 @@ class NewsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Neuigkeiten"),
-      ),
-      body: ListView.builder(
-        padding: const EdgeInsets.all(10),
-        itemCount: newsList.length,
-        itemBuilder: (context, index) {
-          final NewsItem newsItem = newsList[index];
-          return Card(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12)),
-            elevation: 3,
-            margin: const EdgeInsets.symmetric(vertical: 8),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ListTile(
-                  title: Text(newsItem.title, style: themeProvider.themeData.textTheme.titleLarge),
-                  subtitle: Text(newsItem.description, maxLines: 2, overflow: TextOverflow.ellipsis,),
-                  trailing: Icon(Icons.chevron_right),
-                  onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => NewsDetailPageWidget(newsItem: newsItem)));
-                  },
-                )
-              ],
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            expandedHeight: 200,
+            pinned: true,
+            flexibleSpace: FlexibleSpaceBar(
+              title: Text("SMAYL News", style: TextStyle(color: Colors.white),),
+              background: Stack(
+                fit: StackFit.expand,
+                children: [
+                  Image.asset("assets/news_pic.jpg", fit: BoxFit.cover,),
+                  Container(
+                    color: Colors.black.withOpacity(0.3),
+                  )
+                ],
+              ),
             ),
-          );
-        },
+          ),
+          SliverList(
+              delegate: SliverChildBuilderDelegate((context, index) {
+                final news = newsList[index];
+                return Card(
+                  margin: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  child: ListTile(
+                    title: Text(
+                      news.title,
+                      style: themeProvider.themeData.textTheme.titleMedium,
+                    ),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 4),
+                        Text(news.description, maxLines: 2, overflow: TextOverflow.ellipsis,),
+                        SizedBox(height: 6),
+                        Text(
+                          "${news.author} • ${news.date.day}.${news.date.month}.${news.date.year}",
+                          style: TextStyle(color: Colors.grey, fontSize: 12),
+                        )
+                      ],
+                    ),
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (_) => NewsDetailPageWidget(newsItem: news)));
+                    },
+                  ),
+                );
+              },
+              childCount: newsList.length)
+          )
+        ],
       ),
     );
   }
