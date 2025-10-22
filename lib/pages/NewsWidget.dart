@@ -3,7 +3,7 @@
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: NewsWidget.dart
- *  * Last edited on: 22.10.25, 21:57
+ *  * Last edited on: 22.10.25, 21:59
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
@@ -44,7 +44,7 @@ class NewsWidget extends StatelessWidget {
               background: Stack(
                 fit: StackFit.expand,
                 children: [
-                  Image.asset("assets/news_pic.jpg", fit: BoxFit.cover,),
+                  Image.asset("assets/news_pic.jpg", fit: BoxFit.scaleDown,),
                   Container(
                     color: Colors.black.withOpacity(0.3),
                   )
