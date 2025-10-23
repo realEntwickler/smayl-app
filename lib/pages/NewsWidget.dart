@@ -3,7 +3,7 @@
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: NewsWidget.dart
- *  * Last edited on: 22.10.25, 21:59
+ *  * Created on: 23.10.25, 11:46
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
@@ -68,9 +68,22 @@ class NewsWidget extends StatelessWidget {
                         SizedBox(height: 4),
                         Text(news.description, maxLines: 2, overflow: TextOverflow.ellipsis,),
                         SizedBox(height: 6),
-                        Text(
-                          "${news.author} • ${news.date.day}.${news.date.month}.${news.date.year}",
-                          style: TextStyle(color: Colors.grey, fontSize: 12),
+                        Row(
+                          children: [
+                            CircleAvatar(
+                              radius: 12,
+                              child:
+                              Text(news.author[0], style: TextStyle(
+                                  color: generateRandomColor(75),
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold)),
+                            ),
+                            SizedBox(width: 6,),
+                            Text(
+                              "${news.author} • ${news.date.day}.${news.date.month}.${news.date.year}",
+                              style: TextStyle(color: Colors.grey, fontSize: 12),
+                            )
+                          ],
                         )
                       ],
                     ),
