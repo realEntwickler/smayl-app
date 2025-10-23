@@ -3,7 +3,7 @@
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: NewsWidget.dart
- *  * Created on: 23.10.25, 11:46
+ *  * Created on: 23.10.25, 12:01
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
@@ -41,6 +41,8 @@ class NewsWidget extends StatelessWidget {
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
               title: Text("SMAYL News", style: TextStyle(color: Colors.white),),
+              titlePadding: EdgeInsets.only(left: 12, bottom: 16),
+              centerTitle: false,
               background: Stack(
                 fit: StackFit.expand,
                 children: [
