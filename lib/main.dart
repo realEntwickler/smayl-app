@@ -3,7 +3,7 @@
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: main.dart
- *  * Created on: 21.10.25, 12:11
+ *  * Created on: 23.10.25, 12:09
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
@@ -42,6 +42,7 @@ class MyApp extends StatelessWidget {
     final themeProvider = Provider.of<ThemeProvider>(context);
     return MaterialApp(
         debugShowCheckedModeBanner: true,
+        locale: Locale("de", "DE"),
         theme: themeProvider.themeData,
         home: HomeWidget());
   }

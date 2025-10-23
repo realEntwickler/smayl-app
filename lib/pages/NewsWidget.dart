@@ -3,7 +3,7 @@
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: NewsWidget.dart
- *  * Last edited on: 21.10.25, 21:11
+ *  * Created on: 23.10.25, 12:09
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
@@ -18,8 +18,11 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:smayl/provider/ThemeProvider.dart';
 
 import '../utils/NewsItem.dart';
+import 'NewsDetailPageWidget.dart';
 
 class NewsWidget extends StatelessWidget {
 
@@ -29,67 +32,73 @@ class NewsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Neuigkeiten"),
-      ),
-      body: ListView.builder(
-        padding: const EdgeInsets.all(10),
-        itemCount: newsList.length,
-        itemBuilder: (context, index) {
-          final NewsItem newsItem = newsList[index];
-          return Card(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12)),
-            elevation: 3,
-            margin: const EdgeInsets.symmetric(vertical: 8),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
-                  child: Text("NewsID: ${newsItem.uniqueId}"),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(12),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(newsItem.title, style: Theme
-                          .of(context)
-                          .textTheme
-                          .titleLarge),
-                      const SizedBox(height: 6),
-                      Text(newsItem.description, style: Theme
-                          .of(context)
-                          .textTheme
-                          .bodyMedium),
-                      const SizedBox(height: 6),
-                      Row(
-                        children: [
-                          CircleAvatar(
-                            radius: 12,
-                            child:
-                            Text(newsItem.author[0], style: TextStyle(
-                                color: generateRandomColor(75),
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold)),
-                          ),
-                          SizedBox(width: 6,),
-                          Text('${newsItem.author} • ${newsItem.date
-                              .day}.${newsItem.date.month}.${newsItem.date
-                              .year} • ${newsItem.date.hour}:${newsItem.date
-                              .minute} Uhr', style: const TextStyle(color: Colors
-                              .grey))
-                        ],
-                      ),
-                    ],
-                  ),
-                )
-              ],
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            expandedHeight: 200,
+            pinned: true,
+            flexibleSpace: FlexibleSpaceBar(
+              title: Text("SMAYL News", style: TextStyle(color: Colors.white),),
+              titlePadding: EdgeInsets.only(left: 12, bottom: 16),
+              centerTitle: false,
+              background: Stack(
+                fit: StackFit.expand,
+                children: [
+                  Image.asset("assets/news_pic.jpg", fit: BoxFit.scaleDown,),
+                  Container(
+                    color: Colors.black.withOpacity(0.3),
+                  )
+                ],
+              ),
             ),
-          );
-        },
+          ),
+          SliverList(
+              delegate: SliverChildBuilderDelegate((context, index) {
+                final news = newsList[index];
+                final Widget avatar = CircleAvatar(
+                  radius: 12,
+                  child:
+                  Text(news.author[0], style: TextStyle(
+                      color: generateRandomColor(75),
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold)),
+                );
+                return Card(
+                  margin: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  child: ListTile(
+                    title: Text(
+                      news.title,
+                      style: themeProvider.themeData.textTheme.titleMedium,
+                    ),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 4),
+                        Text(news.description, maxLines: 2, overflow: TextOverflow.ellipsis,),
+                        SizedBox(height: 6),
+                        Row(
+                          children: [
+                            avatar,
+                            SizedBox(width: 6,),
+                            Text(
+                              "${news.author} • ${news.date.day}.${news.date.month}.${news.date.year}",
+                              style: TextStyle(color: Colors.grey, fontSize: 12),
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (_) => NewsDetailPageWidget(newsItem: news, avatar: avatar,)));
+                    },
+                  ),
+                );
+              },
+              childCount: newsList.length)
+          )
+        ],
       ),
     );
   }
