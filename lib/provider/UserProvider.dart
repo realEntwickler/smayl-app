@@ -24,6 +24,7 @@ class UserProvider {
 
   Future<SmaylUser> getUserByUsername (String username) async {
     final response = await http.get(Uri.parse("http://127.0.0.1:8080/users/find?username=${username}"));
+
     if (response.statusCode == 200) {
       return SmaylUser.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
     } else {

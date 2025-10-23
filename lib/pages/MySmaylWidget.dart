@@ -15,6 +15,9 @@
  *
  */
 import 'package:flutter/material.dart';
+import 'package:smayl/provider/UserProvider.dart';
+
+import '../utils/SmaylUser.dart';
 
 class MySmaylWidget extends StatefulWidget {
 
@@ -28,6 +31,15 @@ class _MySmaylWidgetState extends State<MySmaylWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    final apiResponse = UserProvider().getUserByUsername("n.koertingebe");
+
+    return FutureBuilder<SmaylUser>(future: apiResponse, builder: (context, snapshot) {
+      if (snapshot.hasData) {
+        return Scaffold(body: Text("Hallo ${snapshot.data!.displayName}", style: TextStyle(fontSize: 20),),);
+      } else if (snapshot.hasError){
+        return Text("Error: ${snapshot.error}");
+      }
+      return CircularProgressIndicator();
+    },);
   }
 }

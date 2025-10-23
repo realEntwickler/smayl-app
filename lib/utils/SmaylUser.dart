@@ -15,24 +15,21 @@
  *
  */
 
-import 'dart:ffi';
-
 class SmaylUser {
-  final Long creationTimestamp;
+  final int creationTimestamp;
   final String uniqueId;
   final String username;
   final String password;
   final String emailAddress;
   final String displayName;
-  final bool enhancedPriviliges;
 
   SmaylUser({required this.creationTimestamp, required this.uniqueId, required this.username, required this.password,
-      required this.emailAddress, required this.displayName, required this.enhancedPriviliges});
+      required this.emailAddress, required this.displayName});
 
   factory SmaylUser.fromJson(Map<String, dynamic> json) {
     return switch(json) {
-      {'creationTimestamp': Long creationTimestamp, 'uniqueId': String uniqueId, 'username': String username, 'password': String password, 'emailAddress': String emailAddress, 'displayName': String displayName, 'enhancedPriviliges': bool enhancedPriviliges} => SmaylUser(
-        creationTimestamp: creationTimestamp, uniqueId: uniqueId, username: username, password: password, emailAddress: emailAddress, displayName: displayName, enhancedPriviliges: enhancedPriviliges
+      {'creationTimestamp': int creationTimestamp, 'uniqueId': String uniqueId, 'username': String username, 'password': String password, 'emailAddress': String emailAddress, 'displayName': String displayName} => SmaylUser(
+        creationTimestamp: creationTimestamp, uniqueId: uniqueId, username: username, password: password, emailAddress: emailAddress, displayName: displayName
       ),
     _ => throw FormatException('Failed to load user.')
     };
