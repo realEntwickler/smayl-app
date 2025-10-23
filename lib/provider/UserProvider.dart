@@ -3,7 +3,7 @@
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: UserProvider.dart
- *  * Created on: 23.10.25, 12:35
+ *  * Created on: 23.10.25, 12:37
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
@@ -24,6 +24,10 @@ class UserProvider {
 
   void addUser(SmaylUser user) {
     _registeredUsers.add(user);
+  }
+
+  void removeUser(SmaylUser user) {
+    _registeredUsers.remove(user);
   }
 
   SmaylUser getUserByUsername (String username) {
