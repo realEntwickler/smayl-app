@@ -1,20 +1,3 @@
-/*
- *
- *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
- *  *
- *  * File: GeneratedPluginRegistrant.java
- *  * Created on: 23.10.25, 12:25
- *  *
- *  * This file is part of the project "SMAYL 2.0".
- *  *
- *  * Licensed under the Creative Commons Attribution - NonCommercial -
- *  * NoDerivatives 4.0 International License (CC BY-NC-ND 4.0).
- *  *
- *  * For more information about this license, please visit:
- *  * https://creativecommons.org/licenses/by-nc-nd/4.0/
- *
- */
-
 package io.flutter.plugins;
 
 import androidx.annotation.Keep;
