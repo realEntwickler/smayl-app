@@ -3,9 +3,9 @@
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: NewsDetailPageWidget.dart
- *  * Created on: 23.10.25, 12:09
+ *  * Created on: 23.10.25, 19:23
  *  *
- *  * This file is part of the project "SMAYL 2.0".
+ *  * This file is part of the project "smayl-app".
  *  *
  *  * Licensed under the Creative Commons Attribution - NonCommercial -
  *  * NoDerivatives 4.0 International License (CC BY-NC-ND 4.0).
