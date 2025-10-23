@@ -3,7 +3,7 @@
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: NewsDetailPageWidget.dart
- *  * Last edited on: 21.10.25, 21:44
+ *  * Created on: 23.10.25, 12:09
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
@@ -20,17 +20,19 @@ import 'package:flutter/material.dart';
 import '../utils/NewsItem.dart';
 
 class NewsDetailPageWidget extends StatelessWidget {
-
   final NewsItem newsItem;
+  final Widget avatar;
 
-  const NewsDetailPageWidget({super.key, required this.newsItem});
+  const NewsDetailPageWidget({
+    super.key,
+    required this.newsItem,
+    required this.avatar,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(newsItem.title),
-      ),
+      appBar: AppBar(title: Text(newsItem.title)),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -41,16 +43,22 @@ class NewsDetailPageWidget extends StatelessWidget {
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             const SizedBox(height: 8),
-            Text(
-              'von ${newsItem.author} • '
-                  '${newsItem.date.day}.${newsItem.date.month}.${newsItem.date.year} um ${newsItem.date.hour}:${newsItem.date.minute} Uhr',
-              style: const TextStyle(color: Colors.grey),
+            Row(
+              children: [
+                Text('von ', style: const TextStyle(color: Colors.grey),),
+                avatar,
+                Text(
+                  ' ${newsItem.author} • '
+                      '${newsItem.date.day}.${newsItem.date.month}.${newsItem.date.year} um ${newsItem.date.hour}:${newsItem.date.minute} Uhr',
+                  style: const TextStyle(color: Colors.grey),
+                ),
+              ],
             ),
             const Divider(height: 24),
             Text(
               newsItem.description,
               style: Theme.of(context).textTheme.bodyLarge,
-            ),
+            )
           ],
         ),
       ),

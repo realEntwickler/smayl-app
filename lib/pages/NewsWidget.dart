@@ -3,7 +3,7 @@
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: NewsWidget.dart
- *  * Created on: 23.10.25, 12:01
+ *  * Created on: 23.10.25, 12:09
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
@@ -57,6 +57,14 @@ class NewsWidget extends StatelessWidget {
           SliverList(
               delegate: SliverChildBuilderDelegate((context, index) {
                 final news = newsList[index];
+                final Widget avatar = CircleAvatar(
+                  radius: 12,
+                  child:
+                  Text(news.author[0], style: TextStyle(
+                      color: generateRandomColor(75),
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold)),
+                );
                 return Card(
                   margin: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                   child: ListTile(
@@ -72,14 +80,7 @@ class NewsWidget extends StatelessWidget {
                         SizedBox(height: 6),
                         Row(
                           children: [
-                            CircleAvatar(
-                              radius: 12,
-                              child:
-                              Text(news.author[0], style: TextStyle(
-                                  color: generateRandomColor(75),
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold)),
-                            ),
+                            avatar,
                             SizedBox(width: 6,),
                             Text(
                               "${news.author} • ${news.date.day}.${news.date.month}.${news.date.year}",
@@ -90,7 +91,7 @@ class NewsWidget extends StatelessWidget {
                       ],
                     ),
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (_) => NewsDetailPageWidget(newsItem: news)));
+                      Navigator.push(context, MaterialPageRoute(builder: (_) => NewsDetailPageWidget(newsItem: news, avatar: avatar,)));
                     },
                   ),
                 );
