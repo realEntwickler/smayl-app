@@ -3,7 +3,7 @@
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: SmaylUser.dart
- *  * Created on: 23.10.25, 12:25
+ *  * Created on: 23.10.25, 12:29
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
@@ -20,7 +20,7 @@ import 'package:uuid/v4.dart';
 
 class SmaylUser {
 
-  final UuidV4 _uniqueId;
+  final String _uniqueId;
   final String _username;
   final String _password;
   final String _displayName;
@@ -40,7 +40,7 @@ class SmaylUser {
 
   String get username => _username;
 
-  UuidV4 get uniqueId => _uniqueId;
+  String get uniqueId => _uniqueId;
 
 
 }
