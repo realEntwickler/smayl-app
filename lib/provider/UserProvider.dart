@@ -14,23 +14,20 @@
  *  * https://creativecommons.org/licenses/by-nc-nd/4.0/
  *
  */
+import 'dart:convert';
+
 import 'package:smayl/utils/SmaylUser.dart';
-import 'package:uuid/uuid.dart';
-import 'package:uuid/v4.dart';
+
+import 'package:http/http.dart' as http;
 
 class UserProvider {
 
-  List<SmaylUser> _registeredUsers = [SmaylUser(UuidV4().generate(), "koertini", "test", "Körting-Eberhardt, Nils", DateTime.now(), true)];
-
-  void addUser(SmaylUser user) {
-    _registeredUsers.add(user);
-  }
-
-  void removeUser(SmaylUser user) {
-    _registeredUsers.remove(user);
-  }
-
-  SmaylUser getUserByUsername (String username) {
-    return _registeredUsers.where((element) => element.username.toLowerCase() == username).first;
+  Future<SmaylUser> getUserByUsername (String username) async {
+    final response = await http.get(Uri.parse("http://127.0.0.1:8080/users/find?username=${username}"));
+    if (response.statusCode == 200) {
+      return SmaylUser.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+    } else {
+      throw Exception('Failed to load user');
+    }
   }
 }

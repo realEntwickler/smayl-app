@@ -3,7 +3,7 @@
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: SmaylUser.dart
- *  * Created on: 23.10.25, 12:30
+ *  * Created on: 23.10.25, 22:11
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
@@ -14,33 +14,27 @@
  *  * https://creativecommons.org/licenses/by-nc-nd/4.0/
  *
  */
+
 import 'dart:ffi';
 
-import 'package:uuid/v4.dart';
-
 class SmaylUser {
+  final Long creationTimestamp;
+  final String uniqueId;
+  final String username;
+  final String password;
+  final String emailAddress;
+  final String displayName;
+  final bool enhancedPriviliges;
 
-  final String _uniqueId;
-  final String _username;
-  final String _password;
-  final String _displayName;
-  final DateTime _timestamp;
-  final bool _enhancedPriviliges;
+  SmaylUser({required this.creationTimestamp, required this.uniqueId, required this.username, required this.password,
+      required this.emailAddress, required this.displayName, required this.enhancedPriviliges});
 
-  SmaylUser(this._uniqueId, this._username, this._password, this._displayName,
-      this._timestamp, this._enhancedPriviliges);
-
-  bool get enhancedPriviliges => _enhancedPriviliges;
-
-  DateTime get timestamp => _timestamp;
-
-  String get displayName => _displayName;
-
-  String get password => _password;
-
-  String get username => _username;
-
-  String get uniqueId => _uniqueId;
-
-
+  factory SmaylUser.fromJson(Map<String, dynamic> json) {
+    return switch(json) {
+      {'creationTimestamp': Long creationTimestamp, 'uniqueId': String uniqueId, 'username': String username, 'password': String password, 'emailAddress': String emailAddress, 'displayName': String displayName, 'enhancedPriviliges': bool enhancedPriviliges} => SmaylUser(
+        creationTimestamp: creationTimestamp, uniqueId: uniqueId, username: username, password: password, emailAddress: emailAddress, displayName: displayName, enhancedPriviliges: enhancedPriviliges
+      ),
+    _ => throw FormatException('Failed to load user.')
+    };
+  }
 }
