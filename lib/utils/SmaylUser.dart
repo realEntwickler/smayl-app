@@ -3,7 +3,7 @@
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
  *  * File: SmaylUser.dart
- *  * Created on: 23.10.25, 12:29
+ *  * Created on: 23.10.25, 12:30
  *  *
  *  * This file is part of the project "SMAYL 2.0".
  *  *
@@ -24,7 +24,7 @@ class SmaylUser {
   final String _username;
   final String _password;
   final String _displayName;
-  final Long _timestamp;
+  final DateTime _timestamp;
   final bool _enhancedPriviliges;
 
   SmaylUser(this._uniqueId, this._username, this._password, this._displayName,
@@ -32,7 +32,7 @@ class SmaylUser {
 
   bool get enhancedPriviliges => _enhancedPriviliges;
 
-  Long get timestamp => _timestamp;
+  DateTime get timestamp => _timestamp;
 
   String get displayName => _displayName;
 
