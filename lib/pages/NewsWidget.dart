@@ -41,33 +41,15 @@ class NewsWidget extends StatelessWidget {
             body: CustomScrollView(
               slivers: [
                 SliverAppBar(
-                  expandedHeight: 200,
+                  title: Text("SMAYL News"),
                   pinned: true,
-                  flexibleSpace: FlexibleSpaceBar(
-                    title: Text(
-                      "SMAYL News",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    titlePadding: EdgeInsets.only(left: 12, bottom: 16),
-                    centerTitle: false,
-                    background: Stack(
-                      fit: StackFit.expand,
-                      children: [
-                        Image.asset(
-                          "assets/news_pic.jpg",
-                          fit: BoxFit.scaleDown,
-                        ),
-                        Container(color: Colors.black.withOpacity(0.4)),
-                      ],
-                    ),
-                  ),
                 ),
                 SliverList(
                   delegate: SliverChildBuilderDelegate((context, index) {
                     final news = snapshot.data!.elementAt(index);
                     return FutureBuilder(future: UserProvider().getUserByUniqueId(news.authorUniqueId), builder: (context, snapshot) {
                       if (!snapshot.hasData) {
-                        return Text("Error");
+                        return CircularProgressIndicator();
                       }
 
                       final Widget avatar = CircleAvatar(
