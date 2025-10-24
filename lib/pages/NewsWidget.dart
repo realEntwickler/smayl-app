@@ -57,7 +57,7 @@ class NewsWidget extends StatelessWidget {
                           "assets/news_pic.jpg",
                           fit: BoxFit.scaleDown,
                         ),
-                        Container(color: Colors.black),
+                        Container(color: Colors.black.withOpacity(0.4)),
                       ],
                     ),
                   ),
