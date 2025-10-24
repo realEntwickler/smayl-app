@@ -1,0 +1,7 @@
+<component name="CopyrightManager">
+  <copyright>
+    <option name="keyword" value="creativecommons" />
+    <option name="notice" value="/*&#10; * (c) &amp;#36;today.year Nils Kevin Koerting-Eberhardt (realEntwickler)&#10; *&#10; * File: &amp;#36;file.fileName&#10; * Created on: &amp;#36;today&#10; *&#10; * This file is part of the project &quot;smayl-app&quot;.&#10; * &#10; * Licensed under the Creative Commons Attribution - NonCommercial - &#10; * NoDerivatives 4.0 International License (CC BY-NC-ND 4.0).&#10; * &#10; * For more information about this license, please visit:&#10; * https://creativecommons.org/licenses/by-nc-nd/4.0/&#10; */" />
+    <option name="myName" value="SMAYL" />
+  </copyright>
+</component>
