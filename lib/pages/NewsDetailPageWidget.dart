@@ -16,21 +16,23 @@
  */
 
 import 'package:flutter/material.dart';
-
-import '../utils/NewsItem.dart';
+import 'package:smayl/interfaces/ISmaylNews.dart';
+import 'package:smayl/utils/SmaylUser.dart';
 
 class NewsDetailPageWidget extends StatelessWidget {
-  final NewsItem newsItem;
+  final ISmaylNews newsItem;
+  final SmaylUser author;
   final Widget avatar;
 
   const NewsDetailPageWidget({
     super.key,
     required this.newsItem,
-    required this.avatar,
+    required this.avatar, required this.author,
   });
 
   @override
   Widget build(BuildContext context) {
+    DateTime date = DateTime.fromMillisecondsSinceEpoch(newsItem.creationTimestamp);
     return Scaffold(
       appBar: AppBar(title: Text(newsItem.title)),
       body: Padding(
@@ -48,8 +50,8 @@ class NewsDetailPageWidget extends StatelessWidget {
                 Text('von ', style: const TextStyle(color: Colors.grey),),
                 avatar,
                 Text(
-                  ' ${newsItem.author} • '
-                      '${newsItem.date.day}.${newsItem.date.month}.${newsItem.date.year} um ${newsItem.date.hour}:${newsItem.date.minute} Uhr',
+                  ' ${author.displayName} • '
+                      '${date.day}.${date.month}.${date.year} um ${date.hour}:${date.minute} Uhr',
                   style: const TextStyle(color: Colors.grey),
                 ),
               ],
