@@ -26,49 +26,64 @@ import 'package:smayl/provider/UserProvider.dart';
 import 'NewsDetailPageWidget.dart';
 
 class NewsWidget extends StatelessWidget {
-
   const NewsWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
     final apiResponse = NewsProvider().getNews();
-    return FutureBuilder(future: apiResponse, builder: (context, snapshot) {
-      if (snapshot.hasData) {
-        return Scaffold(
-          body: CustomScrollView(
-            slivers: [
-              SliverAppBar(
-                expandedHeight: 200,
-                pinned: true,
-                flexibleSpace: FlexibleSpaceBar(
-                  title: Text("SMAYL News", style: TextStyle(color: Colors.white),),
-                  titlePadding: EdgeInsets.only(left: 12, bottom: 16),
-                  centerTitle: false,
-                  background: Stack(
-                    fit: StackFit.expand,
-                    children: [
-                      Image.asset("assets/news_pic.jpg", fit: BoxFit.scaleDown,),
-                      Container(
-                        color: Colors.black.withOpacity(0.3),
-                      )
-                    ],
+
+    return FutureBuilder(
+      future: apiResponse,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return Scaffold(
+            body: CustomScrollView(
+              slivers: [
+                SliverAppBar(
+                  expandedHeight: 200,
+                  pinned: true,
+                  flexibleSpace: FlexibleSpaceBar(
+                    title: Text(
+                      "SMAYL News",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    titlePadding: EdgeInsets.only(left: 12, bottom: 16),
+                    centerTitle: false,
+                    background: Stack(
+                      fit: StackFit.expand,
+                      children: [
+                        Image.asset(
+                          "assets/news_pic.jpg",
+                          fit: BoxFit.scaleDown,
+                        ),
+                        Container(color: Colors.black),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              SliverList(
+                SliverList(
                   delegate: SliverChildBuilderDelegate((context, index) {
                     final news = snapshot.data!.elementAt(index);
-                    UserProvider().getUserByUniqueId(news.authorUniqueId).then((author) {
+                    return FutureBuilder(future: UserProvider().getUserByUniqueId(news.authorUniqueId), builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return Text("Error");
+                      }
+
                       final Widget avatar = CircleAvatar(
                         radius: 12,
-                        child:
-                        Text(author.displayName[0], style: TextStyle(
+                        child: Text(
+                          snapshot.data!.displayName[0],
+                          style: TextStyle(
                             color: generateRandomColor(75),
                             fontSize: 12,
-                            fontWeight: FontWeight.bold)),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       );
-                      DateTime date = DateTime.fromMillisecondsSinceEpoch(news.creationTimestamp);
+                      DateTime date = DateTime.fromMillisecondsSinceEpoch(
+                        news.creationTimestamp,
+                      );
                       return Card(
                         margin: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                         child: ListTile(
@@ -80,43 +95,62 @@ class NewsWidget extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               SizedBox(height: 4),
-                              Text(news.description, maxLines: 2, overflow: TextOverflow.ellipsis,),
+                              Text(
+                                news.description,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
                               SizedBox(height: 6),
                               Row(
                                 children: [
                                   avatar,
-                                  SizedBox(width: 6,),
+                                  SizedBox(width: 6),
                                   Text(
-                                    "${author.displayName} • ${date.day}.${date.month}.${date.year}",
-                                    style: TextStyle(color: Colors.grey, fontSize: 12),
-                                  )
+                                    "${snapshot.data!.displayName} • ${date.day}.${date.month}.${date.year}",
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 12,
+                                    ),
+                                  ),
                                 ],
-                              )
+                              ),
                             ],
                           ),
                           onTap: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (_) => NewsDetailPageWidget(newsItem: news, avatar: avatar, author: author)));
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => NewsDetailPageWidget(
+                                  newsItem: news,
+                                  avatar: avatar,
+                                  author: snapshot.data!,
+                                ),
+                              ),
+                            );
                           },
                         ),
                       );
-                    });
-                  },
-                      childCount: snapshot.data!.length)
-              )
-            ],
-          ),
-        );
-      } else if (snapshot.hasError) {
-        return Text("Error: ${snapshot.error}");
-      }
-      return CircularProgressIndicator();
-    },);
+                    },);
+                  }, childCount: snapshot.data!.length),
+                ),
+              ],
+            ),
+          );
+        } else if (snapshot.hasError) {
+          return Text("Error: ${snapshot.error}");
+        }
+        return CircularProgressIndicator();
+      },
+    );
   }
 
   Color generateRandomColor(double opacity) {
     Random random = Random();
     return Color.fromRGBO(
-        random.nextInt(255), random.nextInt(255), random.nextInt(255), opacity);
+      random.nextInt(255),
+      random.nextInt(255),
+      random.nextInt(255),
+      opacity,
+    );
   }
-
 }

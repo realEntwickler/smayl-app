@@ -25,13 +25,10 @@ class ISmaylNews {
   ISmaylNews({required this.title, required this.description, required this.authorUniqueId,
       required this.creationTimestamp, required this.uniqueId});
 
-  factory ISmaylNews.fromJson(Map<String, dynamic> json) {
-    return ISmaylNews(
-      title: json['title'] as String,
-      description: json['description'] as String,
-      authorUniqueId: json['authorUniqueId'] as String,
-      creationTimestamp: json['creationTimestamp'] as int,
-      uniqueId: json['uniqueId'] as String,
-    );
-  }
+  ISmaylNews.fromJson(Map<String, dynamic> json):
+        title = json["title"],
+        description = json["description"],
+        authorUniqueId = json["authorUniqueId"],
+        creationTimestamp = json["creationTimestamp"],
+        uniqueId = json["uniqueId"];
 }
