@@ -16,11 +16,12 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:smayl/interfaces/ISmaylNews.dart';
 import 'package:smayl/utils/SmaylUser.dart';
 
+import '../utils/SmaylNews.dart';
+
 class NewsDetailPageWidget extends StatelessWidget {
-  final ISmaylNews newsItem;
+  final SmaylNews newsItem;
   final SmaylUser author;
   final Widget avatar;
 
@@ -32,7 +33,7 @@ class NewsDetailPageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DateTime date = DateTime.fromMillisecondsSinceEpoch(newsItem.creationTimestamp);
+    DateTime date = DateTime.fromMillisecondsSinceEpoch(newsItem.timestamp);
     return Scaffold(
       appBar: AppBar(title: Text(newsItem.title)),
       body: Padding(

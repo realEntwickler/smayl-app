@@ -19,7 +19,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:smayl/provider/NewsProvider.dart';
+import 'package:smayl/services/NewsService.dart';
 import 'package:smayl/provider/ThemeProvider.dart';
 import 'package:smayl/provider/UserProvider.dart';
 
@@ -47,7 +47,7 @@ class NewsWidget extends StatelessWidget {
                 SliverList(
                   delegate: SliverChildBuilderDelegate((context, index) {
                     final news = snapshot.data!.elementAt(index);
-                    return FutureBuilder(future: UserProvider().getUserByUniqueId(news.authorUniqueId), builder: (context, snapshot) {
+                    return FutureBuilder(future: UserProvider().getUserByUniqueId(news.authorId), builder: (context, snapshot) {
                       if (!snapshot.hasData) {
                         return CircularProgressIndicator();
                       }
@@ -64,7 +64,7 @@ class NewsWidget extends StatelessWidget {
                         ),
                       );
                       DateTime date = DateTime.fromMillisecondsSinceEpoch(
-                        news.creationTimestamp,
+                        news.timestamp,
                       );
                       return Card(
                         margin: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
