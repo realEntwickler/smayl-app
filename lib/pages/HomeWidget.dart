@@ -93,10 +93,12 @@ class _HomeWidgetState extends State<HomeWidget> {
       appBar: AppBar(
         //title: Text("SMAYL 2.0"),
         flexibleSpace: Image.asset(
-          'assets/appbanner.png',
+          'assets/appbanner_new.png',
           fit: (HomeWidget.exclusiveBannerBehaviour
-              ? BoxFit.fill
+              ? BoxFit.fitHeight
               : BoxFit.fitWidth),
+          alignment: Alignment.center,
+          height: 80,
         ),
         backgroundColor: Colors.transparent,
         foregroundColor: Colors.white,
