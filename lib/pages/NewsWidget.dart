@@ -19,15 +19,20 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:smayl/services/NewsService.dart';
 import 'package:smayl/provider/ThemeProvider.dart';
 import 'package:smayl/provider/UserProvider.dart';
+import 'package:smayl/services/NewsService.dart';
 
 import 'NewsDetailPageWidget.dart';
 
-class NewsWidget extends StatelessWidget {
+class NewsWidget extends StatefulWidget {
   const NewsWidget({super.key});
 
+  @override
+  State<StatefulWidget> createState() => _NewsWidgetState();
+}
+
+class _NewsWidgetState extends State<NewsWidget> {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
@@ -43,76 +48,95 @@ class NewsWidget extends StatelessWidget {
                 SliverAppBar(
                   title: Text("SMAYL News"),
                   pinned: true,
+                  actions: [
+                    MaterialButton(
+                      onPressed: () {
+                        setState(() {});
+                      },
+                      enableFeedback: true,
+                      child: Icon(
+                        Icons.refresh,
+                        color: themeProvider.primaryColor,
+                      ),
+                    ),
+                  ],
                 ),
                 SliverList(
                   delegate: SliverChildBuilderDelegate((context, index) {
                     final news = snapshot.data!.elementAt(index);
-                    return FutureBuilder(future: UserProvider().getUserByUniqueId(news.authorId), builder: (context, snapshot) {
-                      if (!snapshot.hasData) {
-                        return CircularProgressIndicator();
-                      }
+                    return FutureBuilder(
+                      future: UserProvider().getUserByUniqueId(news.authorId),
+                      builder: (context, snapshot) {
+                        if (!snapshot.hasData) {
+                          return CircularProgressIndicator();
+                        }
 
-                      final Widget avatar = CircleAvatar(
-                        radius: 12,
-                        child: Text(
-                          snapshot.data!.displayName[0],
-                          style: TextStyle(
-                            color: generateRandomColor(75),
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
+                        final Widget avatar = CircleAvatar(
+                          radius: 12,
+                          child: Text(
+                            snapshot.data!.displayName[0],
+                            style: TextStyle(
+                              color: generateRandomColor(75),
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                      );
-                      DateTime date = DateTime.fromMillisecondsSinceEpoch(
-                        news.timestamp,
-                      );
-                      return Card(
-                        margin: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                        child: ListTile(
-                          title: Text(
-                            news.title,
-                            style: themeProvider.themeData.textTheme.titleMedium,
+                        );
+                        DateTime date = DateTime.fromMillisecondsSinceEpoch(
+                          news.timestamp,
+                        );
+                        return Card(
+                          margin: EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 8,
                           ),
-                          subtitle: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(height: 4),
-                              Text(
-                                news.description,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              SizedBox(height: 6),
-                              Row(
-                                children: [
-                                  avatar,
-                                  SizedBox(width: 6),
-                                  Text(
-                                    "${snapshot.data!.displayName} • ${date.day}.${date.month}.${date.year}",
-                                    style: TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => NewsDetailPageWidget(
-                                  newsItem: news,
-                                  avatar: avatar,
-                                  author: snapshot.data!,
+                          child: ListTile(
+                            title: Text(
+                              news.title,
+                              style:
+                                  themeProvider.themeData.textTheme.titleMedium,
+                            ),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(height: 4),
+                                Text(
+                                  news.description,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
-                              ),
-                            );
-                          },
-                        ),
-                      );
-                    },);
+                                SizedBox(height: 6),
+                                Row(
+                                  children: [
+                                    avatar,
+                                    SizedBox(width: 6),
+                                    Text(
+                                      "${snapshot.data!.displayName} • ${date.day}.${date.month}.${date.year}",
+                                      style: TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => NewsDetailPageWidget(
+                                    newsItem: news,
+                                    avatar: avatar,
+                                    author: snapshot.data!,
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        );
+                      },
+                    );
                   }, childCount: snapshot.data!.length),
                 ),
               ],

@@ -26,17 +26,17 @@ class UserProvider {
     final response = await http.get(Uri.parse("http://127.0.0.1:8080/users/find?username=${username}"));
 
     if (response.statusCode == 200) {
-      return SmaylUser.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+      return SmaylUser.fromJSON(jsonDecode(response.body) as Map<String, dynamic>);
     } else {
       throw Exception('Failed to load user');
     }
   }
 
   Future<SmaylUser> getUserByUniqueId (String uniqueId) async {
-    final response = await http.get(Uri.parse("http://127.0.0.1:8080/users/find?uniqueId=${uniqueId}"));
+    final response = await http.get(Uri.parse("http://127.0.0.1:8080/users/find?id=${uniqueId}"));
 
     if (response.statusCode == 200) {
-      return SmaylUser.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+      return SmaylUser.fromJSON(jsonDecode(response.body) as Map<String, dynamic>);
     } else {
       throw Exception('Failed to load user');
     }

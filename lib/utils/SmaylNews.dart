@@ -24,7 +24,7 @@ class SmaylNews {
       this.timestamp);
 
   SmaylNews.fromJSON(Map<String, dynamic> json):
-      _id = json['_id'],
+      _id = json['id'],
       title = json['title'],
       description = json['description'],
       authorId = json['authorId'],
