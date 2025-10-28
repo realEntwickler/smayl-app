@@ -76,7 +76,7 @@ class _HomeWidgetState extends State<HomeWidget> {
             selectedIcon: Icon(Icons.local_parking_outlined),
           ),
           NavigationDestination(
-            icon: Image.asset("assets/applogo.png", height: 30, width: 30),
+            icon: Image.asset("assets/applogo_v2_cropped.png", height: 30, width: 30),
             label: "MySMAYL",
           ),
           NavigationDestination(
