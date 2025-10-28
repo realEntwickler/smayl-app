@@ -21,7 +21,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smayl/pages/HomeWidget.dart';
 import 'package:smayl/provider/ThemeProvider.dart';
-import 'package:smayl/utils/firebase_options.dart';
+import 'package:smayl/firebase_options.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
