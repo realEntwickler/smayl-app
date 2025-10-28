@@ -37,7 +37,6 @@ class _NewsWidgetState extends State<NewsWidget> {
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
     final apiResponse = NewsProvider().getNews();
-
     return FutureBuilder(
       future: apiResponse,
       builder: (context, snapshot) {
