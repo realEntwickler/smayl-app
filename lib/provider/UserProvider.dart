@@ -16,11 +16,22 @@
  */
 import 'dart:convert';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:smayl/utils/SmaylUser.dart';
 
 import 'package:http/http.dart' as http;
 
-class UserProvider {
+class UserProvider extends ChangeNotifier {
+
+  User? _currentUser;
+
+  void setUser (User user) {
+    _currentUser = user;
+    notifyListeners();
+  }
+
+  User? get currentUser => _currentUser;
 
   Future<SmaylUser> getUserByUsername (String username) async {
     final response = await http.get(Uri.parse("http://127.0.0.1:8080/users/find?username=${username}"));
