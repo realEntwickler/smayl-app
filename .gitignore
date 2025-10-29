@@ -34,6 +34,15 @@ doc/api/
 # dotenv environment variables file
 .env
 
+### Firebase ###
+.idea
+**/node_modules/*
+**/.firebaserc
+
+### Firebase Patch ###
+.runtimeconfig.json
+.firebase/
+
 ### Flutter ###
 # Flutter/Dart/Pub related
 **/doc/api/
