@@ -22,6 +22,7 @@ import 'package:provider/provider.dart';
 import 'package:smayl/pages/HomeWidget.dart';
 import 'package:smayl/provider/ThemeProvider.dart';
 import 'package:smayl/firebase_options.dart';
+import 'package:smayl/provider/UserProvider.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,11 +36,13 @@ void main() async{
   FirebaseUIAuth.configureProviders([EmailAuthProvider()]);
 
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => themeProvider,
-      child: const MyApp(),
-    ),
-  );
+      MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (_) => themeProvider),
+            ChangeNotifierProvider(create: (_) => UserProvider())
+          ],
+        child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
