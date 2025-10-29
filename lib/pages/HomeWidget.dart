@@ -39,6 +39,7 @@ class HomeWidget extends StatefulWidget {
 }
 
 class _HomeWidgetState extends State<HomeWidget> {
+
   int pageIndex = 0;
   List<Widget> pages = [
     NewsWidget(),
