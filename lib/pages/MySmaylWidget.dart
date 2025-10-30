@@ -39,6 +39,10 @@ class _MySmaylWidgetState extends State<MySmaylWidget> {
   final emailEditController = TextEditingController();
   final passwordEditController = TextEditingController();
 
+  bool _emailValid = true;
+  bool _passwordValid = true;
+  bool _passwordObscured = true;
+
   @override
   void initState() {
     super.initState();
@@ -47,6 +51,15 @@ class _MySmaylWidgetState extends State<MySmaylWidget> {
         _authState = AuthState.profile;
       });
     }
+  }
+
+  void checkEmailInput (String value){
+    _emailValid = value.isNotEmpty &&
+        value.contains('@');
+  }
+
+  void checkPasswordInput (String value) {
+    _passwordValid = value.length >= 6;
   }
 
   @override
@@ -64,18 +77,46 @@ class _MySmaylWidgetState extends State<MySmaylWidget> {
         ),
         body: Column(
           children: [
+            SizedBox(height: 20,),
             TextField(
               decoration: InputDecoration(
                 label: Text("E-Mail Adresse"),
                 icon: Icon(Icons.email),
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: _emailValid ? Colors.grey : Colors.red,
+                  ),
+                ),
+                errorText: _emailValid ? null : "Bitte gib eine gültige E-Mail Adresse an."
               ),
+              onChanged: (value) => setState(() {
+                checkEmailInput(value);
+              }),
               controller: emailEditController,
             ),
+            SizedBox(height: 10),
             TextField(
               decoration: InputDecoration(
                 label: Text("Passwort"),
                 icon: Icon(Icons.password),
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: _passwordValid ? Colors.grey : Colors.red
+                  )
+                ),
+                errorText: _passwordValid ? null : "Das eingegebene Passwort ist ungültig.",
+                suffixIcon: IconButton(
+                  icon: Icon(_passwordObscured ? Icons.visibility_off_outlined : Icons.visibility),
+                  color: themeProvider.primaryColor,
+                  onPressed: () => setState(() {
+                    _passwordObscured = !_passwordObscured;
+                  }),
+                )
               ),
+              obscureText: _passwordObscured,
+              onChanged: (value) => setState(() {
+                checkPasswordInput(value);
+              }),
               controller: passwordEditController,
             ),
             SizedBox(height: 20),
@@ -83,26 +124,43 @@ class _MySmaylWidgetState extends State<MySmaylWidget> {
               children: [
                 MaterialButton(
                   onPressed: () {
-                    if (emailEditController.text.length > 1) {
+                    setState(() {
+                      checkEmailInput(emailEditController.text);
+                      checkPasswordInput(passwordEditController.text);
 
-                    } else {
-
-                    }
+                      if (_emailValid && _passwordValid) {
+                        _auth.signInWithEmailAndPassword(email: emailEditController.text, password: passwordEditController.text).then((value) {
+                          if (value.user != null) {
+                            final user = value.user!;
+                            print("logged in as: ${user.displayName}");
+                            setState(() {
+                              _authState = AuthState.profile;
+                            });
+                          } else {
+                            print('error');
+                          }
+                        }).onError((error, stackTrace) {
+                          print('error ${error.toString()}');
+                        },);
+                      } else {
+                        print('Login failed');
+                      }
+                    });
                   },
                   color: themeProvider.primaryColor,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: Icon(Icons.login),
+                  child: Icon(Icons.login, color: Colors.white),
                 ),
                 SizedBox(width: 12),
                 MaterialButton(
                   onPressed: () {},
                   color: themeProvider.primaryColor,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12)
+                    borderRadius: BorderRadius.circular(12),
                   ),
-                  child: Text("Passwort vergessen?"),
+                  child: Text("Passwort vergessen?", style: TextStyle(color: Colors.white)),
                 ),
                 SizedBox(width: 12),
                 MaterialButton(
@@ -113,17 +171,26 @@ class _MySmaylWidgetState extends State<MySmaylWidget> {
                   },
                   color: themeProvider.primaryColor,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12)
+                    borderRadius: BorderRadius.circular(12),
                   ),
-                  child: Text("Account erstellen"),
-                )
+                  child: Text("Account erstellen", style: TextStyle(color: Colors.white),),
+                ),
               ],
             ),
           ],
         ),
       );
+    } else if (_authState == AuthState.profile){
+      return MaterialButton(onPressed: () {
+        _auth.signOut();
+        setState(() {
+          _authState = AuthState.signIn;
+        });
+      },
+      color: themeProvider.primaryColor,
+      child: Icon(Icons.logout),);
     } else {
-      throw UnimplementedError("Test");
+      return Text("${_authState.name}");
     }
     // return Scaffold(
     //   appBar: AppBar(
