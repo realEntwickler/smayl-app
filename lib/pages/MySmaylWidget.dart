@@ -62,6 +62,22 @@ class _MySmaylWidgetState extends State<MySmaylWidget> {
     _passwordValid = value.length >= 6;
   }
 
+  void signInAction() {
+    _auth.signInWithEmailAndPassword(email: emailEditController.text, password: passwordEditController.text).then((value) {
+      if (value.user != null) {
+        final user = value.user!;
+        print("logged in as: ${user.displayName}");
+        setState(() {
+          _authState = AuthState.profile;
+        });
+      } else {
+        print('error');
+      }
+    }).onError((error, stackTrace) {
+      print('error ${error.toString()}');
+    },);
+  }
+
   @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserProvider>(context);
@@ -92,6 +108,7 @@ class _MySmaylWidgetState extends State<MySmaylWidget> {
               onChanged: (value) => setState(() {
                 checkEmailInput(value);
               }),
+              onSubmitted: (value) => signInAction(),
               controller: emailEditController,
             ),
             SizedBox(height: 10),
@@ -117,6 +134,7 @@ class _MySmaylWidgetState extends State<MySmaylWidget> {
               onChanged: (value) => setState(() {
                 checkPasswordInput(value);
               }),
+              onSubmitted: (value) => signInAction(),
               controller: passwordEditController,
             ),
             SizedBox(height: 20),
@@ -129,19 +147,7 @@ class _MySmaylWidgetState extends State<MySmaylWidget> {
                       checkPasswordInput(passwordEditController.text);
 
                       if (_emailValid && _passwordValid) {
-                        _auth.signInWithEmailAndPassword(email: emailEditController.text, password: passwordEditController.text).then((value) {
-                          if (value.user != null) {
-                            final user = value.user!;
-                            print("logged in as: ${user.displayName}");
-                            setState(() {
-                              _authState = AuthState.profile;
-                            });
-                          } else {
-                            print('error');
-                          }
-                        }).onError((error, stackTrace) {
-                          print('error ${error.toString()}');
-                        },);
+                        signInAction();
                       } else {
                         print('Login failed');
                       }
@@ -155,7 +161,29 @@ class _MySmaylWidgetState extends State<MySmaylWidget> {
                 ),
                 SizedBox(width: 12),
                 MaterialButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    showDialog(context: context, builder: (context) {
+                      return AlertDialog(
+                        title: Text("Passwort zurücksetzen"),
+                        icon: Icon(Icons.help),
+                        content: Column(
+                          children: [
+                            const Text(
+                              'Gib deine E-Mail-Adresse ein. Du erhältst anschließend eine E-Mail mit einem Link zum Zurücksetzen deines Passworts.',
+                            ),
+                            const SizedBox(height: 12),
+                            TextField(
+                              controller: emailEditController,
+                              decoration: const InputDecoration(
+                                labelText: 'E-Mail-Adresse',
+                                prefixIcon: Icon(Icons.email),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    });
+                  },
                   color: themeProvider.primaryColor,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
