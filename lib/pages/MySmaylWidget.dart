@@ -54,8 +54,8 @@ class _MySmaylWidgetState extends State<MySmaylWidget> {
   }
 
   void checkEmailInput (String value){
-    _emailValid = value.isNotEmpty &&
-        value.contains('@');
+    final regex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,}$');
+    _emailValid = regex.hasMatch(value);
   }
 
   void checkPasswordInput (String value) {
