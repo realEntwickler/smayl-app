@@ -252,14 +252,6 @@ class _MySmaylWidgetState extends State<MySmaylWidget> {
   }
 }
 
-class _LoginScreenState extends State<MySmaylWidget> {
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
-  }
-}
-
 class AuthGateWidget extends StatelessWidget {
   const AuthGateWidget({super.key});
 
