@@ -38,8 +38,10 @@ class _MySmaylWidgetState extends State<MySmaylWidget> {
 
   final emailEditController = TextEditingController();
   final passwordEditController = TextEditingController();
+  final emailResetEditController = TextEditingController();
 
   bool _emailValid = true;
+  bool _emailResetValid = true;
   bool _passwordValid = true;
   bool _passwordObscured = true;
 
@@ -53,9 +55,9 @@ class _MySmaylWidgetState extends State<MySmaylWidget> {
     }
   }
 
-  void checkEmailInput (String value){
+  bool checkEmailInput (String value){
     final regex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,}$');
-    _emailValid = regex.hasMatch(value);
+    return regex.hasMatch(value);
   }
 
   void checkPasswordInput (String value) {
@@ -74,7 +76,13 @@ class _MySmaylWidgetState extends State<MySmaylWidget> {
         print('error');
       }
     }).onError((error, stackTrace) {
-      print('error ${error.toString()}');
+      setState(() {
+        _emailValid = false;
+        _passwordValid = false;
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text("Beim Anmelden ist folgender Fehler aufgetreten: ${error.toString()}"),
+        ));
+      });
     },);
   }
 
@@ -106,7 +114,7 @@ class _MySmaylWidgetState extends State<MySmaylWidget> {
                 errorText: _emailValid ? null : "Bitte gib eine gültige E-Mail Adresse an."
               ),
               onChanged: (value) => setState(() {
-                checkEmailInput(value);
+                _emailValid = checkEmailInput(value);
               }),
               onSubmitted: (value) => signInAction(),
               controller: emailEditController,
@@ -143,13 +151,13 @@ class _MySmaylWidgetState extends State<MySmaylWidget> {
                 MaterialButton(
                   onPressed: () {
                     setState(() {
-                      checkEmailInput(emailEditController.text);
+                      _emailValid = checkEmailInput(emailEditController.text);
                       checkPasswordInput(passwordEditController.text);
 
                       if (_emailValid && _passwordValid) {
                         signInAction();
                       } else {
-                        print('Login failed');
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Bitte überprüfe deine angegebene E-Mail Adresse und/oder das Passwort.")));
                       }
                     });
                   },
@@ -173,11 +181,25 @@ class _MySmaylWidgetState extends State<MySmaylWidget> {
                             ),
                             const SizedBox(height: 12),
                             TextField(
-                              controller: emailEditController,
-                              decoration: const InputDecoration(
+                              controller: emailResetEditController,
+                              decoration: InputDecoration(
                                 labelText: 'E-Mail-Adresse',
                                 prefixIcon: Icon(Icons.email),
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: _emailResetValid ? Colors.grey : Colors.red
+                                  )
+                                )
                               ),
+                              onSubmitted: (value) {
+                                _emailResetValid = checkEmailInput(value);
+
+                                if (_emailResetValid) {
+                                  _auth.sendPasswordResetEmail(email: value).then((value) {
+                                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Sollte ein Account mit dieser E-Mail existieren, erhältst du in den nächsten Minuten eine E-Mail zum Zurücksetzen deines Passwortes.")));
+                                  },);
+                                }
+                              },
                             ),
                           ],
                         ),
