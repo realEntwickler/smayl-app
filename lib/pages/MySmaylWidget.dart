@@ -171,39 +171,43 @@ class _MySmaylWidgetState extends State<MySmaylWidget> {
                 MaterialButton(
                   onPressed: () {
                     showDialog(context: context, builder: (context) {
-                      return AlertDialog(
-                        title: Text("Passwort zurücksetzen"),
-                        icon: Icon(Icons.help),
-                        content: Column(
-                          children: [
-                            const Text(
-                              'Gib deine E-Mail-Adresse ein. Du erhältst anschließend eine E-Mail mit einem Link zum Zurücksetzen deines Passworts.',
-                            ),
-                            const SizedBox(height: 12),
-                            TextField(
-                              controller: emailResetEditController,
-                              decoration: InputDecoration(
-                                labelText: 'E-Mail-Adresse',
-                                prefixIcon: Icon(Icons.email),
-                                border: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: _emailResetValid ? Colors.grey : Colors.red
-                                  )
-                                )
+                      return StatefulBuilder(builder: (context, setState2) => AlertDialog(
+                          title: Text("Passwort zurücksetzen"),
+                          icon: Icon(Icons.help),
+                          content: Column(
+                            children: [
+                              const Text(
+                                'Gib deine E-Mail-Adresse ein. Du erhältst anschließend eine E-Mail mit einem Link zum Zurücksetzen deines Passworts.',
                               ),
-                              onSubmitted: (value) {
-                                _emailResetValid = checkEmailInput(value);
+                              const SizedBox(height: 12),
+                              TextField(
+                                controller: emailResetEditController,
+                                decoration: InputDecoration(
+                                    labelText: 'E-Mail-Adresse',
+                                    prefixIcon: Icon(Icons.email),
+                                    border: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: _emailResetValid ? Colors.grey : Colors.red
+                                        )
+                                    )
+                                ),
+                                onSubmitted: (value) {
+                                  _emailResetValid = checkEmailInput(value);
 
-                                if (_emailResetValid) {
-                                  _auth.sendPasswordResetEmail(email: value).then((value) {
-                                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Sollte ein Account mit dieser E-Mail existieren, erhältst du in den nächsten Minuten eine E-Mail zum Zurücksetzen deines Passwortes.")));
-                                  },);
-                                }
-                              },
-                            ),
-                          ],
-                        ),
-                      );
+                                  if (_emailResetValid) {
+                                    _auth.sendPasswordResetEmail(email: value).then((value) {
+                                      Navigator.pop(context);
+                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Sollte ein Account mit dieser E-Mail existieren, erhältst du in den nächsten Minuten eine E-Mail zum Zurücksetzen deines Passwortes.")));
+                                    },);
+                                  }
+                                },
+                                onChanged: (value) => setState2(() {
+                                  _emailResetValid = checkEmailInput(value);
+                                }),
+                              ),
+                            ],
+                          ),
+                        ),);
                     });
                   },
                   color: themeProvider.primaryColor,
