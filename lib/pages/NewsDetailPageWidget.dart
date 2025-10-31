@@ -16,7 +16,7 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:smayl/utils/SmaylUser.dart';
+import 'package:smayl/utils/SmaylProfile.dart';
 
 import '../utils/SmaylNews.dart';
 

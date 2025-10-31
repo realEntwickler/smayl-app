@@ -2,7 +2,7 @@
  *
  *  * (c) 2025 Nils Kevin Koerting-Eberhardt (realEntwickler)
  *  *
- *  * File: SmaylUser.dart
+ *  * File: SmaylProfile.dart
  *  * Created on: 23.10.25, 22:11
  *  *
  *  * This file is part of the project "SMAYL 2.0".
@@ -15,15 +15,18 @@
  *
  */
 
-class SmaylUser {
+class SmaylProfile {
 
   final String _id;
+  final String firstName;
+  final String lastName;
   final String displayName;
   final String emailAddress;
-  final String password;
-  final String username;
+  final String licensePlate;
+  final SmaylStudyGroup studyGroup;
+  final SmaylProfileType profileType;
   final int timestamp;
-  final bool enhancedPriviliges;
+  final bool administrative;
 
 
   SmaylUser(this._id, this.displayName, this.emailAddress, this.password,
