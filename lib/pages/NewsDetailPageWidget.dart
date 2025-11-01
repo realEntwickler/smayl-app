@@ -16,13 +16,13 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:smayl/utils/SmaylProfile.dart';
+import 'package:smayl/backend/SmaylProfile.dart';
 
 import '../utils/SmaylNews.dart';
 
 class NewsDetailPageWidget extends StatelessWidget {
   final SmaylNews newsItem;
-  final SmaylUser author;
+  final SmaylProfile author;
   final Widget avatar;
 
   const NewsDetailPageWidget({

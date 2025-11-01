@@ -19,7 +19,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-import '../utils/SmaylNews.dart';
+import '../backend/SmaylNews.dart';
 
 class NewsProvider {
 
