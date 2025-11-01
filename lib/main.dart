@@ -21,6 +21,7 @@ import 'package:firebase_ui_auth/firebase_ui_auth.dart' as fbui_auth;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smayl/pages/HomeWidget.dart';
+import 'package:smayl/provider/ProfileProvider.dart';
 import 'package:smayl/provider/ThemeProvider.dart';
 import 'package:smayl/firebase_options.dart';
 import 'package:smayl/provider/UserProvider.dart';
@@ -42,7 +43,7 @@ void main() async{
       MultiProvider(
           providers: [
             ChangeNotifierProvider(create: (_) => themeProvider),
-            ChangeNotifierProvider(create: (_) => UserProvider())
+            ChangeNotifierProvider(create: (_) => ProfileProvider())
           ],
         child: const MyApp(),
   ));
