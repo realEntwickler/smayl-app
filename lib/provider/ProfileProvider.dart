@@ -16,6 +16,7 @@
  */
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:smayl/backend/SmaylProfileType.dart';
 import 'package:smayl/services/ProfileService.dart';
 
 import '../backend/SmaylProfile.dart';
@@ -34,7 +35,9 @@ class ProfileProvider extends ChangeNotifier {
       if (value != null) {
         setProfile(value);
       } else {
-
+        final result = ProfileService.createProfileInBackend(user, "firstName", "lastName", "emailAddress", "24-V-05", SmaylProfileType.student, false).then((value) {
+          setProfile(value)
+        },);
       }
     },);
   }

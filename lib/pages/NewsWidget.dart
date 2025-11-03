@@ -20,8 +20,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smayl/provider/ThemeProvider.dart';
-import 'package:smayl/provider/UserProvider.dart';
 import 'package:smayl/services/NewsService.dart';
+import 'package:smayl/services/ProfileService.dart';
 
 import 'NewsDetailPageWidget.dart';
 
@@ -64,7 +64,7 @@ class _NewsWidgetState extends State<NewsWidget> {
                   delegate: SliverChildBuilderDelegate((context, index) {
                     final news = snapshot.data!.elementAt(index);
                     return FutureBuilder(
-                      future: UserProvider().getUserByUniqueId(news.authorId),
+                      future: ProfileService.getDisplayNameById(news.authorId),
                       builder: (context, snapshot) {
                         if (!snapshot.hasData) {
                           return CircularProgressIndicator();
@@ -73,7 +73,7 @@ class _NewsWidgetState extends State<NewsWidget> {
                         final Widget avatar = CircleAvatar(
                           radius: 12,
                           child: Text(
-                            snapshot.data!.displayName[0],
+                            snapshot.data![0],
                             style: TextStyle(
                               color: generateRandomColor(75),
                               fontSize: 12,
@@ -110,7 +110,7 @@ class _NewsWidgetState extends State<NewsWidget> {
                                     avatar,
                                     SizedBox(width: 6),
                                     Text(
-                                      "${snapshot.data!.displayName} • ${date.day}.${date.month}.${date.year}",
+                                      "${snapshot.data!} • ${date.day}.${date.month}.${date.year}",
                                       style: TextStyle(
                                         color: Colors.grey,
                                         fontSize: 12,

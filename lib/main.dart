@@ -24,7 +24,6 @@ import 'package:smayl/pages/HomeWidget.dart';
 import 'package:smayl/provider/ProfileProvider.dart';
 import 'package:smayl/provider/ThemeProvider.dart';
 import 'package:smayl/firebase_options.dart';
-import 'package:smayl/provider/UserProvider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async{

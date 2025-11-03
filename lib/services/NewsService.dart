@@ -25,7 +25,7 @@ class NewsProvider {
 
   Future<SmaylNews> getNewsById(String id) async {
     final response = await http.get(
-        Uri.parse("http://172.16.1.19:8080/news/${id}"));
+        Uri.parse("http://127.0.0.1:8080/news/${id}"));
 
     if (response.statusCode == 200) {
       return SmaylNews.fromJSON(
@@ -36,7 +36,7 @@ class NewsProvider {
   }
   
   Future<List<SmaylNews>> getNews() async {
-    final response = await http.get(Uri.parse("http://172.16.1.19:8080/news/get"));
+    final response = await http.get(Uri.parse("http://127.0.0.1:8080/news/get"));
     if (response.statusCode == 200) {
       final List<dynamic> jsonList = jsonDecode(response.body);
       return jsonList

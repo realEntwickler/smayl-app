@@ -53,4 +53,17 @@ class SmaylProfile {
       profileType = json['profileType'],
       administrative = json['administrative'],
       timestamp = json['timestamp'];
+
+  Map<String, dynamic> toJson() => {
+    '_id': _id,
+    'firstName': firstName,
+    'lastName': lastName,
+    'emailAddress': emailAddress,
+    'displayName': displayName,
+    'licensePlate': licensePlate,
+    'studyGroup': studyGroup,
+    'profileType': profileType,
+    'administrative': administrative,
+    'timestamp': timestamp
+  };
 }

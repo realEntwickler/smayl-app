@@ -15,13 +15,11 @@
  *
  */
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:smayl/provider/ProfileProvider.dart';
 import 'package:smayl/provider/ThemeProvider.dart';
 
-import '../provider/UserProvider.dart';
 
 enum AuthState { signIn, signUp, passwordReset, profile }
 
@@ -64,11 +62,12 @@ class _MySmaylWidgetState extends State<MySmaylWidget> {
     _passwordValid = value.length >= 6;
   }
 
-  void signInAction() {
+  void signInAction(ProfileProvider profileProvider) {
     _auth.signInWithEmailAndPassword(email: emailEditController.text, password: passwordEditController.text).then((value) {
       if (value.user != null) {
         final user = value.user!;
         print("logged in as: ${user.displayName}");
+        profileProvider.
         setState(() {
           _authState = AuthState.profile;
         });
@@ -88,8 +87,8 @@ class _MySmaylWidgetState extends State<MySmaylWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final userProvider = Provider.of<UserProvider>(context);
     final themeProvider = Provider.of<ThemeProvider>(context);
+    final profileProvider = Provider.of<ProfileProvider>(context);
     if (_authState == AuthState.signIn) {
       return Scaffold(
         appBar: AppBar(
@@ -116,7 +115,7 @@ class _MySmaylWidgetState extends State<MySmaylWidget> {
               onChanged: (value) => setState(() {
                 _emailValid = checkEmailInput(value);
               }),
-              onSubmitted: (value) => signInAction(),
+              onSubmitted: (value) => signInAction(profileProvider),
               controller: emailEditController,
             ),
             SizedBox(height: 10),
@@ -253,45 +252,5 @@ class _MySmaylWidgetState extends State<MySmaylWidget> {
     //   body: AuthGateWidget(),
     // );
     //return AuthGateWidget();
-  }
-}
-
-class AuthGateWidget extends StatelessWidget {
-  const AuthGateWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final userProvider = Provider.of<UserProvider>(context);
-    return StreamBuilder<User?>(
-      stream: FirebaseAuth.instance.authStateChanges(),
-      builder: (context, snapshot) {
-        //User is not signed in
-        if (!snapshot.hasData) {
-          return SignInScreen(showPasswordVisibilityToggle: true);
-        }
-        userProvider.setUser(snapshot.data!);
-
-        return Scaffold(
-          appBar: AppBar(
-            title: Text(
-              "Du bist eingeloggt! Hallo, ${snapshot.data!.displayName}",
-            ),
-          ),
-          body: Row(
-            children: [
-              Text("Ausloggen"),
-              SizedBox(width: 6, height: 6),
-              MaterialButton(
-                color: Provider.of<ThemeProvider>(context).primaryColor,
-                child: Icon(Icons.logout),
-                onPressed: () {
-                  FirebaseAuth.instance.signOut();
-                },
-              ),
-            ],
-          ),
-        );
-      },
-    );
   }
 }

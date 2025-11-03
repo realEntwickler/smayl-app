@@ -16,13 +16,12 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:smayl/backend/SmaylProfile.dart';
 
-import '../utils/SmaylNews.dart';
+import '../backend/SmaylNews.dart';
 
 class NewsDetailPageWidget extends StatelessWidget {
   final SmaylNews newsItem;
-  final SmaylProfile author;
+  final String author;
   final Widget avatar;
 
   const NewsDetailPageWidget({
@@ -51,7 +50,7 @@ class NewsDetailPageWidget extends StatelessWidget {
                 Text('von ', style: const TextStyle(color: Colors.grey),),
                 avatar,
                 Text(
-                  ' ${author.displayName} • '
+                  ' ${author} • '
                       '${date.day}.${date.month}.${date.year} um ${date.hour}:${date.minute} Uhr',
                   style: const TextStyle(color: Colors.grey),
                 ),
