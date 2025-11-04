@@ -22,25 +22,35 @@ import 'package:smayl/services/ProfileService.dart';
 import '../backend/SmaylProfile.dart';
 
 class ProfileProvider extends ChangeNotifier {
+  late SmaylProfile? _smaylProfile;
 
-  late SmaylProfile _smaylProfile;
-
-  void setProfile(SmaylProfile value) {
+  void setProfile(SmaylProfile? value) {
     _smaylProfile = value;
     notifyListeners();
   }
 
-  void loadProfile (User user) {
-    ProfileService.getProfileById(user.uid).then((value) {
-      if (value != null) {
-        setProfile(value);
-      } else {
-        final result = ProfileService.createProfileInBackend(user, "firstName", "lastName", "emailAddress", "24-V-05", SmaylProfileType.student, false).then((value) {
-          setProfile(value)
-        },);
-      }
-    },);
+  Future<bool> loadProfile(User user) async {
+    final profile = await ProfileService.getProfileById(user.uid);
+    if (profile != null) {
+      print('PP_loadProfileByExistingUser: true');
+      setProfile(profile);
+      return Future.value(true);
+    } else {
+      final result =
+          ProfileService.createProfileInBackend(
+            user,
+            "firstName",
+            "lastName",
+            "emailAddress",
+            "24-V-05",
+            SmaylProfileType.student,
+            false,
+          ).then((value) {
+            setProfile(value);
+          });
+      return Future.value(true);
+    }
   }
 
-  SmaylProfile get currentProfile => _smaylProfile;
+  SmaylProfile? get currentProfile => _smaylProfile;
 }

@@ -20,7 +20,6 @@ import 'package:provider/provider.dart';
 import 'package:smayl/provider/ProfileProvider.dart';
 import 'package:smayl/provider/ThemeProvider.dart';
 
-
 enum AuthState { signIn, signUp, passwordReset, profile }
 
 class MySmaylWidget extends StatefulWidget {
@@ -47,42 +46,50 @@ class _MySmaylWidgetState extends State<MySmaylWidget> {
   void initState() {
     super.initState();
     if (_auth.currentUser != null) {
-      setState(() {
-        _authState = AuthState.profile;
-      });
+      _auth.signOut();
     }
   }
 
-  bool checkEmailInput (String value){
+  bool checkEmailInput(String value) {
     final regex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,}$');
     return regex.hasMatch(value);
   }
 
-  void checkPasswordInput (String value) {
+  void checkPasswordInput(String value) {
     _passwordValid = value.length >= 6;
   }
 
-  void signInAction(ProfileProvider profileProvider) {
-    _auth.signInWithEmailAndPassword(email: emailEditController.text, password: passwordEditController.text).then((value) {
-      if (value.user != null) {
-        final user = value.user!;
-        print("logged in as: ${user.displayName}");
-        profileProvider.
-        setState(() {
-          _authState = AuthState.profile;
+  void signInAction(ProfileProvider profileProvider) async {
+    _auth
+        .signInWithEmailAndPassword(
+          email: emailEditController.text,
+          password: passwordEditController.text,
+        )
+        .then((value) async {
+          if (value.user != null) {
+            final user = value.user!;
+            print("logged in as: ${user.displayName}");
+            var test = await profileProvider.loadProfile(user);
+            setState(() {
+              _authState = AuthState.profile;
+            });
+          } else {
+            print('error');
+          }
+        })
+        .onError((error, stackTrace) {
+          setState(() {
+            _emailValid = false;
+            _passwordValid = false;
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  "Beim Anmelden ist folgender Fehler aufgetreten: ${error.toString()}",
+                ),
+              ),
+            );
+          });
         });
-      } else {
-        print('error');
-      }
-    }).onError((error, stackTrace) {
-      setState(() {
-        _emailValid = false;
-        _passwordValid = false;
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text("Beim Anmelden ist folgender Fehler aufgetreten: ${error.toString()}"),
-        ));
-      });
-    },);
   }
 
   @override
@@ -100,7 +107,7 @@ class _MySmaylWidgetState extends State<MySmaylWidget> {
         ),
         body: Column(
           children: [
-            SizedBox(height: 20,),
+            SizedBox(height: 20),
             TextField(
               decoration: InputDecoration(
                 label: Text("E-Mail Adresse"),
@@ -110,7 +117,9 @@ class _MySmaylWidgetState extends State<MySmaylWidget> {
                     color: _emailValid ? Colors.grey : Colors.red,
                   ),
                 ),
-                errorText: _emailValid ? null : "Bitte gib eine gültige E-Mail Adresse an."
+                errorText: _emailValid
+                    ? null
+                    : "Bitte gib eine gültige E-Mail Adresse an.",
               ),
               onChanged: (value) => setState(() {
                 _emailValid = checkEmailInput(value);
@@ -125,23 +134,29 @@ class _MySmaylWidgetState extends State<MySmaylWidget> {
                 icon: Icon(Icons.password),
                 border: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: _passwordValid ? Colors.grey : Colors.red
-                  )
+                    color: _passwordValid ? Colors.grey : Colors.red,
+                  ),
                 ),
-                errorText: _passwordValid ? null : "Das eingegebene Passwort ist ungültig.",
+                errorText: _passwordValid
+                    ? null
+                    : "Das eingegebene Passwort ist ungültig.",
                 suffixIcon: IconButton(
-                  icon: Icon(_passwordObscured ? Icons.visibility_off_outlined : Icons.visibility),
+                  icon: Icon(
+                    _passwordObscured
+                        ? Icons.visibility_off_outlined
+                        : Icons.visibility,
+                  ),
                   color: themeProvider.primaryColor,
                   onPressed: () => setState(() {
                     _passwordObscured = !_passwordObscured;
                   }),
-                )
+                ),
               ),
               obscureText: _passwordObscured,
               onChanged: (value) => setState(() {
                 checkPasswordInput(value);
               }),
-              onSubmitted: (value) => signInAction(),
+              onSubmitted: (value) => signInAction(profileProvider),
               controller: passwordEditController,
             ),
             SizedBox(height: 20),
@@ -149,16 +164,21 @@ class _MySmaylWidgetState extends State<MySmaylWidget> {
               children: [
                 MaterialButton(
                   onPressed: () {
-                    setState(() {
-                      _emailValid = checkEmailInput(emailEditController.text);
-                      checkPasswordInput(passwordEditController.text);
+                    _emailValid = checkEmailInput(emailEditController.text);
+                    checkPasswordInput(passwordEditController.text);
 
-                      if (_emailValid && _passwordValid) {
-                        signInAction();
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Bitte überprüfe deine angegebene E-Mail Adresse und/oder das Passwort.")));
-                      }
-                    });
+                    if (_emailValid && _passwordValid) {
+                      signInAction(profileProvider);
+                    } else {
+                      setState(() {});
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            "Bitte überprüfe deine angegebene E-Mail Adresse und/oder das Passwort.",
+                          ),
+                        ),
+                      );
+                    }
                   },
                   color: themeProvider.primaryColor,
                   shape: RoundedRectangleBorder(
@@ -169,51 +189,71 @@ class _MySmaylWidgetState extends State<MySmaylWidget> {
                 SizedBox(width: 12),
                 MaterialButton(
                   onPressed: () {
-                    showDialog(context: context, builder: (context) {
-                      return StatefulBuilder(builder: (context, setState2) => AlertDialog(
-                          title: Text("Passwort zurücksetzen"),
-                          icon: Icon(Icons.help),
-                          content: Column(
-                            children: [
-                              const Text(
-                                'Gib deine E-Mail-Adresse ein. Du erhältst anschließend eine E-Mail mit einem Link zum Zurücksetzen deines Passworts.',
-                              ),
-                              const SizedBox(height: 12),
-                              TextField(
-                                controller: emailResetEditController,
-                                decoration: InputDecoration(
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return StatefulBuilder(
+                          builder: (context, setState2) => AlertDialog(
+                            title: Text("Passwort zurücksetzen"),
+                            icon: Icon(Icons.help),
+                            content: Column(
+                              children: [
+                                const Text(
+                                  'Gib deine E-Mail-Adresse ein. Du erhältst anschließend eine E-Mail mit einem Link zum Zurücksetzen deines Passworts.',
+                                ),
+                                const SizedBox(height: 12),
+                                TextField(
+                                  controller: emailResetEditController,
+                                  decoration: InputDecoration(
                                     labelText: 'E-Mail-Adresse',
                                     prefixIcon: Icon(Icons.email),
                                     border: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: _emailResetValid ? Colors.grey : Colors.red
-                                        )
-                                    )
-                                ),
-                                onSubmitted: (value) {
-                                  _emailResetValid = checkEmailInput(value);
+                                      borderSide: BorderSide(
+                                        color: _emailResetValid
+                                            ? Colors.grey
+                                            : Colors.red,
+                                      ),
+                                    ),
+                                  ),
+                                  onSubmitted: (value) {
+                                    _emailResetValid = checkEmailInput(value);
 
-                                  if (_emailResetValid) {
-                                    _auth.sendPasswordResetEmail(email: value).then((value) {
-                                      Navigator.pop(context);
-                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Sollte ein Account mit dieser E-Mail existieren, erhältst du in den nächsten Minuten eine E-Mail zum Zurücksetzen deines Passwortes.")));
-                                    },);
-                                  }
-                                },
-                                onChanged: (value) => setState2(() {
-                                  _emailResetValid = checkEmailInput(value);
-                                }),
-                              ),
-                            ],
+                                    if (_emailResetValid) {
+                                      _auth
+                                          .sendPasswordResetEmail(email: value)
+                                          .then((value) {
+                                            Navigator.pop(context);
+                                            ScaffoldMessenger.of(
+                                              context,
+                                            ).showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                  "Sollte ein Account mit dieser E-Mail existieren, erhältst du in den nächsten Minuten eine E-Mail zum Zurücksetzen deines Passwortes.",
+                                                ),
+                                              ),
+                                            );
+                                          });
+                                    }
+                                  },
+                                  onChanged: (value) => setState2(() {
+                                    _emailResetValid = checkEmailInput(value);
+                                  }),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),);
-                    });
+                        );
+                      },
+                    );
                   },
                   color: themeProvider.primaryColor,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: Text("Passwort vergessen?", style: TextStyle(color: Colors.white)),
+                  child: Text(
+                    "Passwort vergessen?",
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
                 SizedBox(width: 12),
                 MaterialButton(
@@ -226,22 +266,35 @@ class _MySmaylWidgetState extends State<MySmaylWidget> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: Text("Account erstellen", style: TextStyle(color: Colors.white),),
+                  child: Text(
+                    "Account erstellen",
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
               ],
             ),
           ],
         ),
       );
-    } else if (_authState == AuthState.profile){
-      return MaterialButton(onPressed: () {
-        _auth.signOut();
-        setState(() {
-          _authState = AuthState.signIn;
-        });
-      },
-      color: themeProvider.primaryColor,
-      child: Icon(Icons.logout),);
+    } else if (_authState == AuthState.profile) {
+      return Scaffold(
+        body: Column(
+          children: [
+            MaterialButton(
+              onPressed: () {
+                _auth.signOut();
+                profileProvider.setProfile(null);
+                setState(() {
+                  _authState = AuthState.signIn;
+                });
+              },
+              color: themeProvider.primaryColor,
+              child: Icon(Icons.logout),
+            ),
+            Text("Hallo, ${profileProvider.currentProfile!.displayName}")
+          ],
+        ),
+      );
     } else {
       return Text("${_authState.name}");
     }

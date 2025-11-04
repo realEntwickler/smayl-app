@@ -43,14 +43,14 @@ class SmaylProfile {
   );
 
   SmaylProfile.fromJson(Map<String, dynamic> json)
-    : _id = json['_id'],
+    : _id = json['id'],
       firstName = json['firstName'],
       lastName = json['lastName'],
       emailAddress = json['emailAddress'],
       displayName = json['displayName'],
       licensePlate = json['licensePlate'],
       studyGroup = json['studyGroup'],
-      profileType = json['profileType'],
+      profileType = SmaylProfileType.values.where((element) => element.name == json['profileType'].toString().toLowerCase()).first,
       administrative = json['administrative'],
       timestamp = json['timestamp'];
 
@@ -62,8 +62,10 @@ class SmaylProfile {
     'displayName': displayName,
     'licensePlate': licensePlate,
     'studyGroup': studyGroup,
-    'profileType': profileType,
+    'profileType': profileType.name.toUpperCase(),
     'administrative': administrative,
     'timestamp': timestamp
   };
+
+  String get id => _id;
 }
